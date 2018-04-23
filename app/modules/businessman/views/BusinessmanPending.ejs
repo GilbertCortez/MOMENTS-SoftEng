@@ -1,0 +1,62 @@
+<%- include('../../../templates/businessmanPending.ejs') -%>  
+    <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-11">
+          <h3 class="section-title"></h3>
+          <div class="section-title-divider"></div>
+     
+        </div>
+      </div>
+        
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+		
+		<div class="row" >
+    <div class="col-6 col-md-3"></div>
+    <div class="col-6 col-md-5">
+        <fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+
+               <div class="card" style="width: 20rem;">
+                <div class="card-block" >
+                <% if (profile.intProviderStatus == 2) { %>
+
+                <h2 class="card-title"><strong>Hello Applicant!</strong></h2>
+                <br>
+                <div class="my-overflow" style="overflow-y: auto;height: 100px; max-height: 100px; width: 370px">
+                <h4>Sorry, your application has been rejected. But good news! You can request for application again.</h4>
+                </div>
+                <br>
+                <form>
+              <button type="submit" onclick="return confirm('Do you really want to apply?')" class="btn btn-primary" formmethod="post" formaction="/businessman/businessmanRequest">Apply again!</button>
+            </form>
+
+              <% } else{ %>
+                <h2 class="card-title"><strong>Welcome!</strong></h2>
+                <br>
+                <div class="my-overflow" style="overflow-y: auto;height: 100px; max-height: 100px; width: 370px">
+                <h4>Check your email address for your interview schedule. See the requirements Below</h4>
+                <h5>Please wait while we evaluate you.</h5>
+                </div>
+                <br>
+                <form>
+					<button type="submit" class="btn btn-primary" formmethod="get" formaction="/businessman/requirements">Show PDF</button>
+				</form>
+        <% } %>
+                
+                </div>
+                </div>
+
+        </fieldset> 
+    </div>
+    
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+
+  <%- include('../../../templates/footer.ejs') -%>

@@ -1,0 +1,339 @@
+<%- include('../../../templates/businessmanNavbar.ejs') -%>
+    <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp">
+
+
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+
+    <div class="row">
+
+        <center>
+		 <h3 class="section-title">Services</h3>
+          <div class="section-title-divider"></div>
+
+        <div style="overflow-y: scroll;min-height:200;">
+        <% if (se.length==0 || se=='underfined'){%>
+        <h5>No Services</h5>
+        <% } else{%>
+          <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <!-- <table width="1000px" border="2px" align="center"> -->
+        <thead>
+            <tr>
+                <th>Service No.</th>
+                <th>Service Name</th>
+                <th>Estimated Price</th>
+                <th>Actions</th>
+                <th>Status</th>
+            </tr>
+          </thead>
+        <tbody>
+            <% se.forEach(function(i){ %>
+            <tr style="border: 1px solid #ddd;">
+
+                <td align="center"><%=i.intGenServiceNo%></td>
+                <td align="center"><%= i.strServiceName %></td>
+                <td align="center"><%= i.strEstimatedPrice %></td>
+                <td align="center"><button type="submit"  class="viewService btn btn-secondary btn-sm" data-toggle="modal" data-target="#viewService" data-servicename="<%= i.strServiceName %>" data-serviceprice="<%=i.strEstimatedPrice%>" data-servicedesc="<%=i.strServiceDescription%>" data-servicerefund="<%=i.decServiceRefundPercentage%>" data-serviceavailabledays="<%=i.strServiceAvailableDay%>" >Other Details</button>
+
+  				<button type="submit" class="editService btn btn-secondary btn-sm" data-toggle="modal" data-target="#editService" data-eserviceno="<%=i.intGenServiceNo%>" data-eservicename="<%=i.strServiceName%>" data-eserviceprice="<%=i.strEstimatedPrice%>" data-eservicedescription="<%=i.strServiceDescription%>" data-eserviceavailabledays="<%=i.strServiceAvailableDay%>" data-eservicerefund="<%=i.decServiceRefundPercentage%>" >Edit</button>
+
+
+
+                </td>
+               	<td>
+               		<center>
+               		<% if(i.intGenServiceStatus == 1) { %>
+                        <button type="submit" data-toggle="modal" data-target="#inactivateService" data-servicenum="<%=i.intGenServiceNo%>"  class="inactivateservice btn btn-secondary btn-sm">Active</button>
+                <% } %>
+                <% if(i.intGenServiceStatus == 0) { %>
+                        <button type="submit" data-toggle="modal" data-target="#activateService" data-servicenum="<%=i.intGenServiceNo%>" class="activateservice btn btn-secondary btn-sm">Inactive</button>
+                <% } %>
+                	</center>
+               	</td>
+
+
+            </tr>
+            <% }); %>
+          </tbody>
+        </table>
+        <% }%>
+        </div>
+        </center>
+
+	</div>
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>
+  </section>
+
+  <script>
+
+  $(document).ready(function() {
+    $('#example').DataTable( {
+        select: true
+    } );
+  } );
+  </script>
+
+
+
+
+    <!--==========================
+  modal for activate service
+============================-->
+<div class="modal fade" id="activateService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+			<form>
+            <input type="hidden" name="sno2" id="sno2">
+            <h3><strong>Do you want to activate this item?</strong></h3>
+
+                <button type="submit" class="btn btn-services" formmethod="post" formaction="/businessman/activateService"  >Yes</button>
+               <button type="button" class="btn btn-services" data-dismiss="modal"  >No</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+
+    <!--==========================
+  modal for inactivate service
+============================-->
+<div class="modal fade" id="inactivateService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+			<form>
+            <input type="hidden" name="sno" id="sno">
+            <h3><strong>Do you want to deactivate this item?</strong></h3>
+
+                <button type="submit" class="btn btn-services" formmethod="post" formaction="/businessman/inactivateService"  >Yes</button>
+               <button type="button" class="btn btn-services" data-dismiss="modal"  >No</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+
+
+    <!--==========================
+  modal for view service
+============================-->
+<div class="modal fade" id="viewService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">YOUR SERVICE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+
+				<label for="ServiceName">Service Name</label>
+                <input type="text" class="form-control" id="ServiceName" placeholder="" readonly>
+				<br>
+				<label for="ServicePrice">Service Price</label>
+                <input type="text" class="form-control" id="ServicePrice" placeholder="" min=1 readonly>
+				<br>
+				<label for="Description">Service Description</label>
+                <textarea  style=" resize: none;" class="form-control" id="ServiceDescription" placeholder="What's the specification/condition of your item?" readonly></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+
+				<label for="servicerefund">Refund Percentage</label>
+                <input type="number" class="form-control" id="servicerefund" placeholder="" readonly>
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="days" id="sMO" value="MO">Mon &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sTU" value="TU">Tue &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sWE" value="WE">Wed &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sTH" value="TH">Thu &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sFR" value="FR">Fri &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sSA" value="SA">Sat &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="sSU" value="SU">Sun &nbsp;&nbsp;
+				</div><br>
+				<br>
+
+
+              <button type="button" class="btn btn-services" data-dismiss="modal"  >Okay</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+<!--==========================
+  modal for edit service
+============================-->
+<div class="modal fade" id="editService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EDIT YOUR SERVICE</h3>
+		</div>
+		<div class="modal-body">
+			<form >
+              <div class="form-group">
+
+				<input type="hidden" class="form-control" id="eserviceno" name="eserviceno" placeholder="" readonly>
+				<br>
+				<label for="serviceName">Service Name</label>
+                <input type="text" class="form-control" id="eservicename" name="eservicename" placeholder="" required>
+				<br>
+				<label for="eserviceprice">Service Price</label>
+                <input type="text" class="form-control" id="eserviceprice" name="eserviceprice" placeholder="" min=1 required>
+				<br>
+				<label for="Description">Service Description</label>
+                <textarea style=" resize: none;"  class="form-control" id="eservicedescription" name="eservicedescription" placeholder="What included on the Service?(eg. For Music Entertainment Service: 1 singer, 1 microphone, 2 speakers, and 1 piano." required></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+			<script>
+				function updateSlidersr(slideAmountr) {
+				var sliderDiv = document.getElementById("sliderAmountsc");
+				sliderDiv.innerHTML = parseInt(slideAmountr*100)+"% will be refunded by the event organizers if their reservation is cancelled.";
+				}
+				</script>
+				<input id="eservicerefund" name="eservicerefund" type="range" min="0.00" max="1.00" step="0.01" value="75" onchange="updateSlidersr(this.value)" required>
+				<div id="sliderAmountsc" ></div>​
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="days" id="esMO" value="MO" >Mon &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esTU" value="TU">Tue &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esWE" value="WE">Wed &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esTH" value="TH">Thu &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esFR" value="FR">Fri &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esSA" value="SA">Sat &nbsp;&nbsp;
+				<input type="checkbox" name="days" id="esSU" value="SU">Sun &nbsp;&nbsp;
+				</div><br>
+
+
+              <button type="submit" onclick="return confirm('Do you want to proceed?');" class="btn btn-services" formmethod="post" formaction="/businessman/editService">Save Changes</button>
+				<button type="Submit" class="btn btn-services"  data-dismiss="modal">Cancel</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+
+
+  <%- include('../../../templates/footer.ejs') -%>
+
+
+
+      <script>
+
+
+          $('.activateservice').on('click', function(){
+              $('#sno2').val($(this).data('servicenum'))
+          })
+          $('.inactivateservice').on('click', function(){
+              $('#sno').val($(this).data('servicenum'))
+          })
+
+
+
+
+
+
+          $('.viewService').on('click', function(){
+              $('#ServiceName').val($(this).data('servicename'))
+              $('#ServicePrice').val($(this).data('serviceprice'))
+              $('#ServiceDescription').val($(this).data('servicedesc'))
+              $('#vservicerefund').val($(this).data('servicerefund'))
+              $('#servicerefund').val($(this).data('servicerefund')*100)
+              var s = ($(this).data('serviceavailabledays')).split(",")
+//            var count = 0;
+            for(j=0; j<s.length; j++){
+//                count++;
+//                alert($('#MO').val())
+                if ($('#sMO').val() == s[j]){
+                    $('#sMO').attr('checked','checked')
+                }
+                if ($('#sTU').val() == s[j]){
+                    $('#sTU').attr('checked','checked')
+                }
+                if ($('#sWE').val() == s[j]){
+                    $('#sWE').attr('checked','checked')
+                }
+                if ($('#sTH').val() == s[j]){
+                    $('#sTH').attr('checked','checked')
+                }
+                if ($('#sFR').val() == s[j]){
+                    $('#sFR').attr('checked','checked')
+                }
+                if ($('#sSA').val() == s[j]){
+                    $('#sSA').attr('checked','checked')
+                }
+                if ($('#sSU').val() == s[j]){
+                    $('#sSU').attr('checked','checked')
+                }
+            }
+          })
+
+
+          $('.editService').on('click',function(){
+              $('#eservicename').val($(this).data('eservicename'))
+              $('#eserviceno').val($(this).data('eserviceno'))
+              $('#eserviceprice').val($(this).data('eserviceprice'))
+              $('#eservicedescription').text($(this).data('eservicedescription'))
+              $('#eservicerefund').val($(this).data('eservicerefund'))
+            var w = ($(this).data('eserviceavailabledays')).split(",")
+//            var count = 0;
+            for(j=0; j<w.length; j++){
+//                count++;
+//                alert($('#MO').val())
+                if ($('#esMO').val() == w[j]){
+                    $('#esMO').attr('checked','checked')
+                }
+                if ($('#esTU').val() == w[j]){
+                    $('#esTU').attr('checked','checked')
+                }
+                if ($('#esWE').val() == w[j]){
+                    $('#esWE').attr('checked','checked')
+                }
+                if ($('#esTH').val() == w[j]){
+                    $('#esTH').attr('checked','checked')
+                }
+                if ($('#esFR').val() == w[j]){
+                    $('#esFR').attr('checked','checked')
+                }
+                if ($('#esSA').val() == w[j]){
+                    $('#esSA').attr('checked','checked')
+                }
+                if ($('#esSU').val() == w[j]){
+                    $('#esSU').attr('checked','checked')
+                }
+            }
+          })
+
+      </script>
+
+<% if (success == 1 ) { %>
+        <script>swal("Success!","You Successfully Added", "success");</script>
+    <% } %>

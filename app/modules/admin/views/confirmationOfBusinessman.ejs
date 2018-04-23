@@ -1,0 +1,190 @@
+<%- include('../../../templates/adminNavbar.ejs') -%>
+    <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">APPLICANTS</h3>
+          <div class="section-title-divider"></div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+
+	<div class="container" align=center>
+    <div class="row" >
+        <div>
+            <%if (content.length==0){ %>
+            <h1>There's no Applicants as of today!</h1>
+            <%}%>
+            <% content.forEach(function(i){ %>
+            <fieldset class="well the-fieldset" style="width: 50rem; border-color: black; border-width: 3px; background-color: light gray">
+				<div class="card" style="width: 40rem;">
+					<div class="card-block">
+						<h3 class="card-title" ><strong> <%= i.strProviderFName %>&nbsp;<%= i.strProviderLName %></strong></h3>
+						<h5  class="card-text" align=left><strong>Email address: </strong> <%= i.strProviderEmail %></h5>
+  						<h5 class="card-text" align=left><strong>Telephone Number: </strong><%= i.strProviderTel %></h5>
+						<h5 class="card-text" align=left><strong>Cellphone Number: </strong><%= i.strProviderCell %></h5>
+						<table align=center>
+							<tr>
+								<td><button type="submit" class="evaluateButton btn btn-primary" data-toggle="modal" data-target="#confirmationOfBusinessman" data-providerfname="<%= i.strProviderFName %>" data-providermname="<%= i.strProviderMName%>" data-providerlname="<%= i.strProviderLName%>" data-providerEmail="<%=i.strProviderEmail%>" data-providertel="<%=i.strProvidertel%>" data-providercel="<%=i.strProviderCell%>" data-providerid="<%=i.intProviderID%>" data-providerlocation="<%=i.strCity%>,<%=i.strProvince%>" data-providerbusinessname="<%=i.strProviderBusinessName%>"  data-beer="<%=i.strProviderBIR%>" data-deet="<%=i.strProviderDTI%>" data-bankis="<%=i.strBankNo%>" data-bankis1="<%=i.strBankName%>"  >Evaluate</button></td>
+
+
+							</tr>
+						</table>
+					</div>
+				</div>
+            </fieldset>
+            <% }); %>
+        </div>
+    </div>
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>
+  </section>
+  <!--==========================
+  modal for Confirmation of businessman
+============================-->
+<div class="modal fade" id="confirmationOfBusinessman" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EVALUATE APPLICANT</h3>
+		</div>
+		<div class="modal-body">
+
+            <!-- content goes here -->
+			<form>
+              <div class="form-group">
+			  <fieldset style="width: 500px;">
+			  <legend><strong>Personal Information</strong></legend>
+                <label for="FName">Identification Number</label>
+                <input type="text" class="form-control" id="idNumber" name="idnumber" placeholder="" readonly>
+				<br>
+                <label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" placeholder="" readonly>
+				<br>
+                <label for="MName">Middle Name</label>
+                <input type="text" class="form-control" id="MName" placeholder="" readonly>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" placeholder="" readonly>
+				<br>
+				<label for="Email">Email Address</label>
+                <input type="Email" class="form-control" id="Email" placeholder="" readonly>
+
+
+				</fieldset>
+
+						<br>
+				<fieldset style="width: 500px;">
+			  <legend><strong>Contact Information</strong></legend>
+
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelNo" readonly >
+				<label for="CellphoneNumber">Cellphone Number*</label>
+                <input type="number" class="form-control" id="CelNo"  readonly>
+					</fieldset>
+					<br>
+<fieldset style="width: 500px;">
+<legend><strong>Business Location Information</strong></legend>
+	<label for="EventLocation">Event Location(City,Province)</label>
+
+
+
+							  		<script >
+								function activatePlacesSearch(){
+
+								var input = document.getElementById('searchbox');
+								var options = {
+								  types: ['(regions)'],
+								  componentRestrictions: {country: "ph"}
+								 };
+								var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+
+
+							}
+							</script>
+							<input type="text"  class="form-control" name="location" id="searchbox" placeholder="Sta. Mesa, Manila or Marilao, Bulacan" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+							<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCURW8qYuJPFWDgCQLx2iLWBNsWHbZ4FQg&libraries=places&callback=activatePlacesSearch"  ></script>
+
+</fieldset>
+					<br>
+			 <fieldset style="width: 500px;">
+			  <legend><strong>Business Information</strong></legend>
+				<label for="BusinessName">Business Name*</label>
+                <input type="text" class="form-control" id="BusinessName" name="businessName" placeholder="Business Name(eg. Cherish Event Company)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<label for="BankName">Bank Name*</label>
+                <input type="text" class="form-control" id="BankName" placeholder="Bank Name(eg. BDO, Landbank)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<label for="BankNumber">Bank Number*</label>
+                <input type="text" class="form-control" id="BankNumber" placeholder="Bank Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<label for="pbir">Bureau Of Internal Revenue Number(BIR No.)*</label>
+                <input type="text" class="form-control" id="pbir" name="bir" placeholder="BIR Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<label for="pbir">Department of Trade and Industry Number(DTI No.)*</label>
+                <input type="text" class="form-control" id="pdti" name="dti" placeholder="DTI Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+
+
+				</fieldset>
+				<br>
+
+              <button type="submit" formmethod="post" formaction="/admin/confirmationOfBusinessman" class="btn btn-default">Approve</button>
+
+			  <button type="submit"class="btn btn-default" onclick="reject()" formmethod="post" formaction="/admin/rejectionOfBusinessman" >Reject</button>
+
+            </form>
+                <script>
+
+                function reject(){
+
+                    document.getElementById("searchbox").required=false; document.getElementById("BusinessName").required=false; document.getElementById("BankName").required=false;
+                    document.getElementById("BankNumber").required=false;
+                    document.getElementById("pbir").required=false;
+                    document.getElementById("pdti").required=false;
+
+
+                }
+
+                </script>
+		</div>
+
+	</div>
+  </div>
+</div>
+</div>
+
+<%- include('../../../templates/footer.ejs') -%>
+
+    <script>
+	var pacContainerInitialized = false;
+                        $('#searchbox').keypress(function() {
+                                if (!pacContainerInitialized) {
+                                        $('.pac-container').css('z-index', '9999');
+                                        pacContainerInitialized = true;
+                                }
+                        });
+          $('.evaluateButton').on('click',function(){
+              $('#FName').val($(this).data('providerfname'))
+              $('#MName').val($(this).data('providermname'))
+              $('#LName').val($(this).data('providerlname'))
+              $('#Email').val($(this).data('provideremail'))
+              $('#TelNo').val($(this).data('providertel'))
+              $('#CelNo').val($(this).data('providercel'))
+              $('#idNumber').val($(this).data('providerid'))
+              $('#searchbox').val($(this).data('providerlocation'))
+              $('#pbir').val($(this).data('beer'))
+              $('#pdti').val($(this).data('deet'))
+              $('#BankNumber').val($(this).data('bankis'))
+              $('#BankName').val($(this).data('bankis1'))
+              $('#BusinessName').val($(this).data('providerbusinessname'))
+
+
+
+          })
+      </script>

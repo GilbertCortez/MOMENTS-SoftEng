@@ -1,0 +1,280 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+
+<!--==========================
+  MODAL STEPS
+============================-->
+	<div class="modal fade" id="steps" role="dialog"  >
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">STEPS IN ORGANIZING EVENT WITH 'MOMENTS'</h4>
+				</div>
+				<div class="modal-body">
+					<p><strong>Step 1:</strong> Fill up a form with your EVENT INFORMATION.</p>
+					<p><strong>Step 2:</strong> Make a LIST of ITEM & SERVICES needed for your Event. </p>
+					<p><strong>Step 3:</strong> Choose SPECIFIC ITEMS & SERVICES based on your lists in step 2. </p>
+					<p><strong>Step 4:</strong> Finalize your Event Details.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+    <!--==========================
+  Services Section
+============================-->
+	<section id="services">
+		<div class="container wow fadeInUp" style="min-height:400;">
+			<div class="row">
+				<div class="col-md-12">
+					<h3 class="section-title">ORGANIZE NEW EVENT <a href="#" data-toggle="modal" data-target="#steps" ><span class="glyphicon glyphicon-info-sign"></span></a></h3>
+					<div class="section-title-divider"></div>
+					<div class="progress">
+						<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:25%">
+							25% Completed in Organizing your Event
+						</div>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				<!-- YOUR CODES HERE -->
+				<h2><strong>STEP 2</strong>: Items & Services Lists needed for your event  </h2>
+				<hr>
+				<div class="row">
+				<form method="post" action="/organizer/itemServiceList" >
+				<input type="hidden" name="hiddenEventNo" value="<%= curreventno.intEventNo %>">
+					<div class="col-6 col-md-2"></div>
+					<div class="col-6 col-md-4">
+						<fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+						<div class="card" style="width: 33rem;">
+							<div class="card-block">
+								<h4 class="card-title" align="center"><strong>ITEMS</strong></h4>
+								<div align="center">
+									<button type="button" onclick="myFunction1()" class="btn btn-services" >Add Item in the list</button>
+									<hr>
+								</div>
+							<div align="center" id="divList1" class="col-2 col-md-10" ></div>
+							<div align="center" id="divList2" class="col-2 col-md-2" ></div>
+							<script type="text/javascript">
+								var ctr1=0;
+								var parent1 = document.getElementById("divList1");
+								var parent2 = document.getElementById("divList2");
+								
+								function myFunction1() {
+									var x = document.createElement("INPUT");
+										x.setAttribute("type", "text");
+										x.setAttribute("class","form-control");
+										x.setAttribute("id", "itemlist"+ctr1);
+										x.setAttribute("required","true");
+									var z=document.createElement("BUTTON");
+										z.setAttribute("value","X");
+										z.setAttribute("id","itemlistbutton"+ctr1);
+										z.setAttribute("value",ctr1);
+										z.setAttribute("class","btn btn-services");
+									parent1.appendChild(x);
+									parent2.appendChild(z);
+									document.getElementById( "itemlistbutton"+ctr1 ).onclick= close1;
+									document.getElementById( "itemlistbutton"+ctr1 ).innerHTML="X";
+									ctr1++;
+								}
+								
+								function close1(){
+								var closeButton = document.getElementById(this.id);
+								var inputList = document.getElementById("itemlist"+this.value);
+								parent2.removeChild(closeButton);
+								parent1.removeChild(inputList);
+								}
+								
+							</script>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+    
+		<div class="col-6 col-md-4">
+			<fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+				<div class="card" style="width: 33rem;">
+					<div class="card-block">
+						<h4 class="card-title" align="center"><strong>SERVICES</strong></h4>
+							
+				<div align="center">
+							<button type="button" onclick="myFunction2()" class="btn btn-services" >Add Service in the list</button>
+							<hr>
+							
+			</div>
+			<div >
+			<div align="center" id="divList3" class="col-2 col-md-10" ></div>
+			<div align="center" id="divList4" class="col-2 col-md-2" ></div>
+
+			<script type="text/javascript">
+							var ctr2=0;
+							var parent3 = document.getElementById("divList3");
+							var parent4 = document.getElementById("divList4");
+							function myFunction2() {
+								var x = document.createElement("INPUT");
+								x.setAttribute("type", "text");
+								x.setAttribute("class","form-control");
+								x.setAttribute("id", "servicelist"+ctr2);
+								x.setAttribute("required","true");
+								var z=document.createElement("BUTTON");
+								z.setAttribute("value","X");
+								z.setAttribute("id","servicelistbutton"+ctr2);
+								z.setAttribute("value",ctr2);
+								z.setAttribute("class","btn btn-services");
+					
+								
+								 parent3.appendChild(x);
+								 parent4.appendChild(z);
+								
+							document.getElementById( "servicelistbutton"+ctr2 ).onclick= close2;
+							document.getElementById( "servicelistbutton"+ctr2 ).innerHTML="X";
+							
+							
+								ctr2++;
+							   
+							}
+							function close2(){
+							var closeButton = document.getElementById(this.id);
+							var inputList = document.getElementById("servicelist"+this.value);
+							parent4.removeChild(closeButton);
+							parent3.removeChild(inputList);
+						
+							
+							
+							}
+							</script>
+				<input type="hidden" id="itemarrayfield" name="itemarrayfield"></input>			
+				<input type="hidden" id="servicearrayfield" name="servicearrayfield"></input>		
+								<script>
+								var serviceListArray=[];
+								var itemListArray=[];
+								
+				
+								
+								
+								function arrayGenerators(){
+								serviceArrayGenerator();
+								itemArrayGenerator();
+								
+								try{
+								alert(itemListArray);
+								document.getElementById("itemarrayfield").value=itemListArray.join();
+								document.getElementById("servicearrayfield").value=serviceListArray.join();
+								
+								}
+								catch(err){
+							alert(err);
+								}
+								}
+								
+						function serviceArrayGenerator(){
+						serviceListArray=[];
+						var minuser=0;
+						var checker;
+						
+						for(var counter=0;counter<ctr2;counter=counter+0){
+						var doublechecker=false;
+							try{
+								checker=document.getElementById("servicelist"+counter).value.replace(/\s+/g,' ').trim();
+								for(var counterDouble=0;counterDouble<=serviceListArray.length;counterDouble++)
+									if(checker==serviceListArray[counterDouble])
+										doublechecker=true;
+								if(doublechecker==true){
+									minuser++;
+									counter++;
+								}
+								else if(!(  checker==null && checker.length==0 && checker==undefined && checker=="")){
+									
+									serviceListArray[counter-minuser]=document.getElementById("servicelist"+counter).value.replace(/\s+/g,' ').trim();
+									counter++;
+								}
+								else{
+									minuser++;
+									counter++;
+								}
+							}
+							catch(err){
+							
+								minuser++;
+								counter++;
+							}
+							}
+							
+						}
+						
+						function itemArrayGenerator(){
+						itemListArray=[];
+						var minuser=0;
+						var checker;
+						
+						for(var counter=0;counter<ctr1;counter=counter+0){
+						var doublechecker=false;
+							try{
+								checker=document.getElementById("itemlist"+counter).value.replace(/\s+/g,' ').trim();
+								for(var counterDouble=0;counterDouble<=itemListArray.length;counterDouble++)
+									if(checker==itemListArray[counterDouble])
+										doublechecker=true;
+								if(doublechecker==true){
+									minuser++;
+									counter++;
+								}
+								else if(!(  checker==null && checker.length==0 && checker==undefined && checker=="")){
+									
+									itemListArray[counter-minuser]=document.getElementById("itemlist"+counter).value.replace(/\s+/g,' ').trim();
+									counter++;
+								}
+								else{
+									minuser++;
+									counter++;
+								}
+							}
+							catch(err){
+							
+								minuser++;
+								counter++;
+							}
+							}
+					
+						}
+						</script>
+					</div>
+				</div>
+			</fieldset>
+		</div>
+	
+	</div>
+	<br>
+	<br>
+
+
+							<div align="center">
+								<button type="submit" onclick="arrayGenerators()" class="btn btn-services" >Proceed(<strong>Step 3</strong>:Choose specific Items&Services)</button>
+				
+							</div>
+				</form>
+				<!-- END OF YOUR CODES -->
+			</div>
+		</div>  
+  </section>
+  
+<%- include('../../../templates/footer.ejs') -%>
+

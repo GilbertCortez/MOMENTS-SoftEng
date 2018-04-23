@@ -1,0 +1,152 @@
+<%- include('../../../templates/businessmanNavbar.ejs') -%>
+
+<!--==========================
+Services Section
+============================-->
+<section id="services">
+<div class="container wow fadeInUp">
+
+
+  <div class="row">
+    <!-- YOUR CODES HERE -->
+
+
+<div class="row">
+
+<!--        <div class="col-6 col-md-6">-->
+
+    <center>
+     <h3 class="section-title">Payments</h3>
+          <div class="section-title-divider"></div>
+
+       <div style="overflow-y: scroll; min-height:100;">
+        <% if (content.length == 0 || content == 'undefined' || content == 'null') { %>
+            <h5>No Payments</h5>
+        <% } else {%>
+          <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <!-- <table width="1000px" border="2px" align="center" style="overflow-y: auto; min-height:100;"> -->
+            <thead>
+                <tr>
+                <th>Payment No.</th>
+                <th>Payee</th>
+                <th>Event Name</th>
+                <th>Amount Paid</th>
+
+                <th align="center">Actions</th>
+                <th align="center">Status</th>
+              </tr>
+            </thead>
+
+
+            <tbody>
+
+              <% content.forEach(function(i){ %>
+                <tr>
+                <td><%= i.intPaymentNo %></td>
+                <td><%= i.strOrganizerFName %> &nbsp; <%= i.strOrganizerLName %></td>
+                <td><%= i.strEventName %></td>
+                <td align="right"><%= i.decAmountPaid %></td>
+
+                <td align="center"><button type="submit" class="viewPayment btn btn-secondary btn-sm"  data-toggle="modal" data-target="#viewPayment" data-paymentno="<%= i.intPaymentNo %>" data-picture="<%=i.strDepositSlip%>">View Receipt</button></td>
+                <td><% if(i.intStatus == 1) { %>
+                  <p>Paid</p>
+                <% } %>
+                <% if(i.intStatus == 0) { %>
+                  <p>Unpaid</p>
+                <% } %>
+                <% if(i.intStatus == 2) { %>
+                  <p>Partial</p>
+                <% } %>
+                <% if(i.intStatus == 3) { %>
+                  <p>Rejected</p>
+                <% } %>
+                </td>
+              </tr>
+              <% }); %>
+            </tbody>
+
+        </table>
+        <% } %>
+
+
+
+        </div>
+        </center>
+
+</div>
+
+<br>
+
+<!-- END OF YOUR CODES -->
+  </div>
+</div>
+</section>
+
+
+<script>
+
+$(document).ready(function() {
+  $('#example').DataTable( {
+      select: true
+  } );
+} );
+</script>
+
+<!-- modal -->
+<div class="modal fade" id="viewPayment" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Confirm Payment</h3>
+		</div>
+		<div class="modal-body">
+
+            <!-- content goes here -->
+
+    <div class="form-group">
+      <form>
+        <input type="hidden" id="payid" name="payid" value=""/>
+
+        <img src="" style="width: 90%; height: 50%" id="picz"/>
+      </br>
+      <label for="paym">Please enter amount of payment</label>
+        <input type="number" class="form-control" id="paym" required name="payment" />
+      </br>
+
+
+          <button type="submit" formmethod="post" formaction="/admin/confirmPayment" class="btn btn-default">Approve</button>
+
+	         <button type="submit" class="btn btn-default" onclick="dis()"  formmethod="post" formaction="/admin/rejectPayment" >Reject</button>
+
+           <script>
+           function dis(){
+             document.getElementById("paym").required=false;
+           }
+           </script>
+
+            </form>
+
+		</div>
+
+	</div>
+  </div>
+</div>
+</div>
+
+
+
+
+
+
+<%- include('../../../templates/footer.ejs') -%>
+
+<script>
+    $('.viewPayment').on('click',function(){
+        $('#payid').val($(this).data('paymentno'))
+        $('#picz').attr('src',$(this).data('picture'))
+        //document.getElementById('pic').src=($(this).data('picture'))
+    });
+
+
+</script>

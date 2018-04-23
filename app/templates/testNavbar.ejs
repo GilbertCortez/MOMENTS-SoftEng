@@ -1,0 +1,316 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Moments</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link href="favicon.ico" rel="shortcut icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- For dynamic date and time -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/assets/date_time.js"></script>
+
+    <link href="/assets/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet">
+     <script src="/assets/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+
+
+
+</head>
+
+<body>
+  <div id="preloader"></div>
+
+
+<!--==========================
+  Navbar
+============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <img src="/assets/img/logo.png" alt="" title="" />
+
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/businessman">Home</a></li>
+		    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Item or Service<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="" data-toggle="modal" data-target="#createNewItem">Add New Item</a></li>
+							<li><a href="" data-toggle="modal" data-target="#createNewService">Add New Service</a></li>
+							<li class="divider"></li>
+                            <li><a href="/businessman/items">View Items</a></li>
+                            <li><a href="/businessman/services">View Services</a></li>
+                        </ul>
+                    </li>
+
+		  <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Transactions<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/businessman/reservations">Reservations</a></li>
+							<li><a href="/businessman/previousReservation">Previous Reservation</a></li>
+                        </ul>
+                    </li>
+          <li><a href="" data-toggle="modal" data-target="#viewProfile">Profile</a></li>
+		<li><a href="/login/logout">Logout</a></li>
+		<li><a>| &nbsp;&nbsp; /*Sign in as <%= user %> /* &nbsp;&nbsp;&nbsp;&nbsp;<span id="date_time"></span></a>
+           <script type="text/javascript">window.onload = date_time('date_time');</script>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #navbar -->
+
+
+<!--==========================
+  modal for Create new item
+============================-->
+<div class="modal fade" id="createNewItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">OFFER YOUR NEW ITEM</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/businessman/createItem">
+              <div class="form-group">
+
+				<label for="ItemName">Item Name</label>
+                <input type="text" class="form-control" id="ItemName" name="itemName" placeholder="" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<br>
+				<label for="ItemPrice">Item Estimated Price</label>
+                <input type="text" class="form-control" id="ItemPrice" name="itemPrice" placeholder="500 pesos per hour" min=1 required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<br>
+				<label for="Description">Item Description</label>
+                <textarea  style=" resize: none;" class="form-control" id="Description" name="itemDescription" placeholder="What's the specification/condition of your item?" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+
+				<script>
+				function updateSlider(slideAmount) {
+                try{
+				var sliderDiv = document.getElementById("sliderAmount");
+				sliderDiv.innerHTML = parseInt(slideAmount*100)+"% will be refunded by the event organizers if their reservation is cancelled.";
+                }
+                catch(err){
+                    document.getElementById("sliderAmount").innerHTML = err.message;
+                }
+				}
+				</script>
+				<input id="slide" type="range" min="0.00" max="1.00" step="0.01" name="itemRefund"  value="75" onchange="updateSlider(this.value)" required>
+				<div id="sliderAmount" ></div>​
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="days" value="MO">Mon &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="TU">Tue &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="WE">Wed &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="TH">Thu &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="FR">Fri &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="SA">Sat &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="SU">Sun &nbsp;&nbsp;
+				</div><br>
+				<br>
+
+
+              <button type="submit" class="btn btn-services"  >Create</button>
+				<button type="reset" class="btn btn-services"  >Clear</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+<!--==========================
+  modal for Create new service
+============================-->
+<div class="modal fade" id="createNewService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">OFFER YOUR NEW SERVICE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+
+				<label for="serviceName">Service Name</label>
+                <input type="text" class="form-control" id="serviceName" name="serviceName" placeholder="" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<br>
+				<label for="servicePrice">Service Estimated Price</label>
+                <input type="text" class="form-control" id="servicePrice" name="servicePrice" placeholder="" min=1 required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+				<br>
+				<label for="Description">Service Description</label>
+                <textarea style=" resize: none;"  class="form-control" id="Description" name="serviceDescription" placeholder="What included on the Service?(eg. For Music Entertainment Service: 1 singer, 1 microphone, 2 speakers, and 1 piano." required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+
+			<script>
+				function updateSliders(slideAmount) {
+				var sliderDiv = document.getElementById("sliderAmounts");
+				sliderDiv.innerHTML = parseInt(slideAmount*100)+"% will be refunded by the event organizers if their reservation is cancelled.";
+				}
+				</script>
+				<input id="slide" type="range" min="0.00" max="1.00" step="0.01" name="serviceRefund"  value="75" onchange="updateSliders(this.value)" required>
+				<div id="sliderAmounts" ></div>​
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="days" value="MO" >Mon &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="TU">Tue &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="WE">Wed &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="TH">Thu &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="FR">Fri &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="SA">Sat &nbsp;&nbsp;
+				<input type="checkbox" name="days" value="SU">Sun &nbsp;&nbsp;
+				</div><br>
+				<br>
+
+
+
+
+              <button type="submit" class="btn btn-services" formmethod="post" formaction="/businessman/createService" >Create</button>
+				<button type="reset" class="btn btn-services"  >Clear</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+<!--==========================
+  modal for view profile
+============================-->
+<div class="modal fade" id="viewProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID" value=<%= profile.intProviderID %> readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" value=<%= profile.strProviderFName%> readonly>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" value=<%= profile.strProviderLName %> readonly>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                  <% if (!(profile.strProviderTel+"" == "" )) { %>
+                <input type="text" class="form-control" id="TelephoneNumber" value="<%= profile.strProviderTel %>" readonly>
+                    <% } %>
+                   <% if (profile.strProviderTel+"" == "" ) { %>
+                <input type="text" class="form-control" id="TelephoneNumber" value="N/A" readonly>
+                    <% } %>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="text" class="form-control" id="CellphoneNumber" value=<%= profile.strProviderCell %> readonly>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" value=<%= profile.strProviderBusinessName  %> readonly>
+				<br>
+				<label for="BIR">BIR Number</label>
+                <input type="text" class="form-control" id="BIR" value=<%= profile.strProviderBIR %> readonly>
+				<br>
+				<label for="BIR">DTI Number</label>
+                <input type="text" class="form-control" id="DTI" value=<%= profile.strProviderDTI %> readonly>
+				<br>
+              <button type="close" class="btn btn-services" data-dismiss="modal" data-dismiss="modal"  >Close</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+   <!--==========================
+  modal for edit event organizer profile
+============================-->
+<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EDIT YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID"  readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" required>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" required>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelephoneNumber" required>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="number" class="form-control" id="CellphoneNumber" required>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" readonly>
+				<br>
+				<label for="BIR">BIR Number</label>
+                <input type="text" class="form-control" id="BIR" readonly>
+				<br>
+				<label for="BIR">DTI Number</label>
+                <input type="text" class="form-control" id="DTI" readonly>
+				<br>
+              <button type="submit" class="btn btn-services" data-toggle="modal" data-target="#" >Submit</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>

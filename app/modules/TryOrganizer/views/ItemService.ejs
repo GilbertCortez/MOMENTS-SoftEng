@@ -1,0 +1,408 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+
+    <!--==========================
+  Services Section
+============================-->
+	<section id="services">
+		<div class="container wow fadeInUp"  style="min-height:400;">
+			<div class="row">
+				<div class="col-md-12">
+			
+<h3 class="section-title"><%= eventdetails[0].strEventName %></h3>
+					<div class="section-title-divider"></div>
+					<div class="progress">
+					 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100" style="width:75%">
+    75% Completed in Organizing your Event
+	</div>
+  </div>
+ 	<form method="post" action="/organizer/AddItemService">
+	 <div class="col-lg-6">
+    <div class="input-group">
+	
+	<input type="hidden" value="<%= currevent %>" name="currentEvent">
+      <input type="text" class="form-control" name="searchbox" placeholder="Search for..." pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+      <span class="input-group-btn" >
+        <button class="btn btn-default" type="submit" style="background-color:gray;"><span class="glyphicon glyphicon-search" aria-hidden="true" style="background-color:gray;"></span></button>
+	  </span>
+	
+    </div><!-- /input-group -->
+  </div>
+  
+        </form>
+		  	<h3>SEARCH & ADD more items/services for your Event!</h3>
+		<hr>
+
+  
+				</div>
+			</div>
+	<div class="row">
+        <!-- YOUR CODES HERE -->
+
+  <center><form method="post" action="/organizer/ViewItemService" id="ViewItemService"></form>
+
+  <input type="hidden" value="<%= currevent %>"  form="ViewItemService" name="eventNo"><button class="btn btn-primary" type="submit" form="ViewItemService">View Items/Service for this upcoming event </button>
+</center>
+        <br><br>
+
+	  
+
+  
+<!--  <div id="itemsCollapse" >-->
+    <div class="row">
+
+   <%if (reItems.length==0 && reServices.length==0){ %>
+        <center><h2>There's no Item/Service searched!</h2></center>
+         <% } else {%>
+    <div style="overflow-y: scroll;min-height:400;">
+    <table width="95%" id="itemTable">
+	<tr style="border: 1px solid #ddd;">
+		<th>Name</th>
+        <th>Type</th>
+		<th>Estimated Price</th>
+		<th>Refund Percentage</th>
+		<th>Provider Name</th>
+		<th>Actions</th>
+
+	</tr>
+        <% } %>
+      <%if (reItems.length==0){ %>
+          
+            <%} else {%>
+
+    <% reItems.forEach(function(i,ctr){ %>
+	<tr style="border: 1px solid #ddd;">
+	
+    <td><%= i.strItemName%></td>
+    <td>Item</td>
+	<td><%= i.strEstimatedPrice%></td>
+	<td><%= parseInt(i.decItemRefundPercentage * 100)  %></td>
+	<td><%= i.strProviderFName%> <%= i.strProviderLName%></td>
+	<td><a class="IVDButton btn btn-primary" href="" data-toggle="modal" data-target="#IVDModal" onclick="idisable()"
+					data-ivd1="<%= i.strItemDescription %>"
+					data-ivd2="<%= i.strProviderTel %>"
+					data-ivd3="<%= i.strProviderCell %>"
+					data-ivd4="<%= i.strProviderEmail  %>"
+					data-ivd5="<%= i.strCity %>"
+					data-ivd6="<%= i.strProvince %>"
+					data-ivd7="<%= i.intItemNo %>"
+					data-ivd8="<%= i.strItemName %>"
+					>View Other Details</a> 
+		<a class="btn btn-primary" id='<%= ctr %>' onclick="document.getElementById('itemTable').getElementsByTagName('tr')[parseInt(this.id)+1].style.display = 'none';">Remove</a>
+		</td>
+				
+		
+		
+    </tr><% }); %>
+        <% } %>
+<!--
+    </table>
+	</div>
+	<br>
+
+  </div>
+   <div id="servicesCollapse" style="display:none;">
+-->
+    <div class="row">
+   
+ 
+   
+        <%if (reServices.length==0){ %>
+          
+            <%} else {%>
+
+    <% reServices.forEach(function(i,ctr){ %>
+	<tr style="border: 1px solid #ddd;">
+	
+    <td><%= i.strServiceName%></td>
+    <td>Service</td>
+	<td><%= i.strEstimatedPrice%></td>
+	<td><%= parseInt(i.decServiceRefundPercentage * 100)  %></td>
+	<td><%= i.strProviderFName%> <%= i.strProviderLName%></td>
+	<td><a class="SVDButton btn btn-primary" href="" data-toggle="modal" data-target="#SVDModal" onclick="sdisable()"
+					data-svd1="<%= i.strServiceDescription %>"
+					data-svd2="<%= i.strProviderTel %>"
+					data-svd3="<%= i.strProviderCell %>"
+					data-svd4="<%= i.strProviderEmail  %>"
+					data-svd5="<%= i.strCity %>"
+					data-svd6="<%= i.strProvince %>"
+					data-svd7="<%= i.intGenServiceNo %>"
+					data-svd8="<%= i.strServiceName %>"
+					>View Other Details</a> 
+		<a class="btn btn-primary"  id='<%= ctr %>' onclick="document.getElementById('serviceTable').getElementsByTagName('tr')[parseInt(this.id)+1].style.display = 'none';">Remove</a>
+		</td>
+				
+		
+		
+    </tr><% }); %>
+        <% } %>
+    </table>
+	</div>
+	<br>
+	
+  </div>
+</div>
+
+<script>
+function itemOpen(){
+document.getElementById('servicesCollapse').style.display = "none";
+
+document.getElementById('itemsCollapse').style.display = "block";
+
+}
+function serviceOpen(){
+document.getElementById('itemsCollapse').style.display = "none";
+document.getElementById('servicesCollapse').style.display = "block";
+}
+
+</script>
+
+<!--==========================
+  MODAL SVD
+============================-->
+	<div class="modal fade" id="SVDModal" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="SVDModal6"></h4>
+				</div>
+				<div class="modal-body">
+				<label> Service Description</label>
+				<input type="text" class="form-control" id="SVDModal1"  readonly>
+					<label>Provider Telephone Number</label>
+				<input type="text" class="form-control" id="SVDModal2" readonly>
+					<label>Provider Cellphone Number</label>
+				<input type="text" class="form-control" id="SVDModal3" readonly>
+					<label>Provider Email</label>
+				<input type="text" class="form-control" id="SVDModal4" readonly>
+					<label>Provider Location</label>
+				<input type="text" class="form-control" id="SVDModal5" readonly>
+				<form method="post" action="/organizer/AddService" >
+				<div id="SDOU" style="display:none;">
+				<label>Date Of Use</label>
+						<input type="date" class="form-control" id="dateUse" name="dateOfUse" required>
+				<input type="time" class="form-control"value="00:00"  id="timeUse" name="timeOfUse" required>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" value=<%= currevent %>  name="currentEvent">
+
+					<table>
+						<tr>
+							<td><button type="submit" class="btn btn-submit"  id="servicereq" name="servicereq" >Proceed</button></form>
+							<td><button type="button" class="btn btn-submit"  id="asks" onclick="servicerequest()">Ask for Reservation</button></form>
+							<td><button type="button" class="btn btn-default" id="iclose"data-dismiss="modal">Close</button>
+						</tr>
+					</table>
+					
+					<script>
+						function sdisable(){
+							document.getElementById("SDOU").style.display = "none";
+							document.getElementById("servicereq").style.display="none";
+							document.getElementById("asks").style.display="block";
+						}
+						function servicerequest() {
+						var d=new Date("<%= eventdetails[0].dateEventStart %>");
+					
+				var year=d.getFullYear();
+var month=d.getMonth() +1;
+var day=d.getDate();
+
+var fulldate=year+"-";
+
+								if(month<10)
+								fulldate=fulldate+"0"+month;
+								else
+								fulldate=fulldate+month;
+
+								fulldate=fulldate+"-";
+								
+								if(day<10)
+								fulldate=fulldate+"0"+day;
+								else
+								fulldate=fulldate+day;
+								
+							
+								document.getElementById("dateUse").value= fulldate;
+                            document.getElementById("dateUse").max= fulldate;
+                           
+                            var md = new Date();
+var minyear=md.getFullYear();
+var minmonth=md.getMonth() +1;
+var minday=md.getDate();
+var mfulldate=minyear+"-";
+
+								if(minmonth<10)
+								mfulldate=mfulldate+"0"+minmonth;
+								else
+								mfulldate=mfulldate+minmonth;
+
+								mfulldate=mfulldate+"-";
+								
+								if(minday<10)
+								mfulldate=mfulldate+"0"+minday;
+								else
+								mfulldate=mfulldate+minday;
+                            document.getElementById("dateUse").min= mfulldate;
+							document.getElementById("SDOU").style.display = "block";
+							document.getElementById("servicereq").style.display="block";
+							document.getElementById("asks").style.display="none";
+						}
+					</script>
+				</div>
+			</div>  
+		</div>
+	</div>
+
+
+
+
+<!--==========================
+  MODAL VD
+============================-->
+	<div class="modal fade" id="IVDModal" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title" id="IVDModal6"></h4>
+				</div>
+				<div class="modal-body">
+				<div id="sdetails">
+					<label> Item Description</label>
+					<input type="text" class="form-control" id="IVDModal1"  readonly>
+					<label>Provider Telephone Number</label>
+					<input type="text" class="form-control" id="IVDModal2" readonly>
+					<label>Provider Cellphone Number</label>
+					<input type="text" class="form-control" id="IVDModal3" readonly>
+					<label>Provider Email</label>
+					<input type="text" class="form-control" id="IVDModal4" readonly>
+					<label>Provider Location</label>
+					<input type="text" class="form-control" id="IVDModal5" readonly>
+				</div>
+				<form method="post" action="/organizer/AddItem" >
+				<div id="IDOU" style="display:none;">
+					<label>Date Of Use</label>
+							<input type="date" class="form-control" id="idateUse" name="dateOfUse" required>
+					<input type="time" class="form-control" value="00:00" id="timeUse" name="timeOfUse" required>
+				</div>
+				</div>
+				<div class="modal-footer">
+					<input type="hidden" value=<%= currevent%>  name="currentEvent">
+
+					
+							<button type="submit" class="btn btn-submit" id="itemreq" name="itemreq" >Proceed</button></form>
+							<button type="button" class="btn btn-submit"  id="ask" onclick="itemrequest()">Ask for Reservation</button></form>
+							
+					
+					
+					<script>
+						function idisable(){
+							document.getElementById("IDOU").style.display = "none";
+							document.getElementById("itemreq").style.display="none";
+							document.getElementById("ask").style.display="block";
+						}
+						function itemrequest() {
+							var d=new Date("<%= eventdetails[0].dateEventStart %>");
+					
+			var year=d.getFullYear();
+var month=d.getMonth() +1;
+var day=d.getDate();
+
+var fulldate=year+"-";
+
+								if(month<10)
+								fulldate=fulldate+"0"+month;
+								else
+								fulldate=fulldate+month;
+
+								fulldate=fulldate+"-";
+								
+								if(day<10)
+								fulldate=fulldate+"0"+day;
+								else
+								fulldate=fulldate+day;
+								
+								                        var md = new Date();
+var minyear=md.getFullYear();
+var minmonth=md.getMonth() +1;
+var minday=md.getDate();
+var mfulldate=minyear+"-";
+
+								if(minmonth<10)
+								mfulldate=mfulldate+"0"+minmonth;
+								else
+								mfulldate=mfulldate+minmonth;
+
+								mfulldate=mfulldate+"-";
+								
+								if(minday<10)
+								mfulldate=mfulldate+"0"+minday;
+								else
+								mfulldate=mfulldate+minday;
+                            document.getElementById("idateUse").min= mfulldate;
+							document.getElementById("idateUse").value= fulldate;
+												 document.getElementById("idateUse").max= fulldate;	
+							document.getElementById("IDOU").style.display = "block";
+							document.getElementById("itemreq").style.display="block";
+							document.getElementById("ask").style.display="none";
+						}
+					</script>
+				</div>
+			</div>  
+		</div>
+	</div>
+
+
+
+
+
+
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+  
+<%- include('../../../templates/footer.ejs') -%>
+
+<script>
+	 $('.SVDButton').on('click',function(){
+        
+            $('#SVDModal1').val($(this).data('svd1'))
+			$('#SVDModal2').val($(this).data('svd2'))
+			$('#SVDModal3').val($(this).data('svd3'))
+			$('#SVDModal4').val($(this).data('svd4'))
+			$('#SVDModal5').val($(this).data('svd5')+","+$(this).data('svd6'))
+			$('#SVDModal6').text("SERVICE DETAILS("+$(this).data('svd8')+")")
+			$('#servicereq').val($(this).data('svd7'))
+          })	
+		   $('.IVDButton').on('click',function(){
+        
+            $('#IVDModal1').val($(this).data('ivd1'))
+			$('#IVDModal2').val($(this).data('ivd2'))
+			$('#IVDModal3').val($(this).data('ivd3'))
+			$('#IVDModal4').val($(this).data('ivd4'))
+			$('#IVDModal5').val($(this).data('ivd5')+","+$(this).data('ivd6'))
+			$('#IVDModal6').text("SERVICE DETAILS("+$(this).data('ivd8')+")")
+			$('#itemreq').val($(this).data('ivd7'))
+          })	
+		  </script>

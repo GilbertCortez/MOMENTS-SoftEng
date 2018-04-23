@@ -1,0 +1,97 @@
+<%- include('../../../templates/adminNavbar.ejs') -%>
+    <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">REPORTS</h3>
+          <div class="section-title-divider"></div>
+     
+        </div>
+      </div>
+        
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+		
+	<div class="row" >
+    <div class="col-6 col-md-2"></div>
+        
+    <div class="col-6 col-md-4">
+	 <h3 class="section-title">Items</h3>
+     
+        
+        
+        <fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+            <form>
+               <div class="card" style="width: 30rem;">
+                <div class="card-block" >
+                
+                <h4 class="card-title" name="card"><strong>Item Name: </strong> Item1</h4>
+                <br>
+                <label for="itemnum">Item Number: </label>
+                <input type="number" class="form-control" id="itemnum" name="itemno" value="0001" readonly >
+                <br>
+                <div class="my-overflow" style="overflow-y: auto;height: 150px; max-height: 200px; width: 370px">
+                <h5><strong>Offered by: </strong> Janelle Alag </h5>
+				<h5><strong>Estimated Price: </strong> 500 per hour </h5>
+				<h5><strong>Description: </strong> Item Description </h5>
+                </div>
+                <br>
+               
+                    <button type="submit" formmethod="post" formaction="/admin/approveItemRequest" class="btn btn-primary">Approve</button>
+					<button type="submit" class="btn btn-primary" formmethod="post" formaction="/admin/rejectItemRequest" >Reject</button>
+				
+                </div>
+                </div>
+            </form>
+
+        </fieldset>
+    
+    </div>
+    
+    <div class="col-6 col-md-4">
+		 <h3 class="section-title">Services</h3>
+          
+        
+        <fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+            <form>
+               <div class="card" style="width: 30rem;">
+                <div class="card-block" >
+                
+                <h4 class="card-title"><strong>Service Name:</strong> Service1</h4>
+                <br>
+                <label for="itemnum">Service Number:</label>
+                <input type="number" class="form-control" id="servicenum" name="serviceno" value="00002" readonly >
+                <div class="my-overflow" style="overflow-y: auto;height: 150px; max-height: 200px; width: 370px">
+                
+                <br>
+                <h5><strong>Offered by:</strong> Janelle Alag</h5>
+				<h5><strong>Estimated Price:</strong> 500 per guests </h5>
+				<h5><strong>Description:</strong> Service Description </h5>
+                </div>
+                <br>
+                
+					<button type="submit" formmethod="post" formaction="/admin/approveServiceRequest" class="btn btn-primary">Approve</button>
+					<button type="submit" class="btn btn-primary" formmethod="post" formaction="/admin/rejectServiceRequest">Reject</button>
+			
+                </div>
+                </div>
+            </form>
+        </fieldset>
+        
+	</div>
+        
+        
+
+
+	
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+
+  
+<%- include('../../../templates/footer.ejs') -%>
+     

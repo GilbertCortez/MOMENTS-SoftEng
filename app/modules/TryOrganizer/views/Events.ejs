@@ -1,0 +1,203 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+   <style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+   <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp"  style="min-height:400;">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">UPCOMING EVENTS</h3>
+          <div class="section-title-divider"></div>
+     
+        </div>
+      </div>
+        
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+		
+		
+<%if (re.length==0){ %>
+          <center><h1>There's no upcoming event.</h1></center></div>
+            <%} else {%>
+	
+<div class="container" >
+    <div class="row" >
+        <div align=center style="overflow-y: scroll; width:97%;min-height:400;">
+		
+		<table width="100%" >
+		<tr  style="border: 1px solid #ddd;">
+			<th style="border: 1px solid #ddd;" >Event Name</th>
+			<th style="border: 1px solid #ddd;" >Start</th>
+			<th style="border: 1px solid #ddd;" >End</th>
+			<th style="border: 1px solid #ddd;" >Location</th>
+			<th style="border: 1px solid #ddd;" >Actions</th>
+		</tr>
+		<tr>
+		
+		<% re.forEach(function(i){ %>
+            <td style="border: 1px solid #ddd;"  ><%= i.strEventName %>
+            <td style="border: 1px solid #ddd;" ><h5 ><%= i.start %></td>
+			<td style="border: 1px solid #ddd;" ><h5 ><%= i.end%></td>
+			<td style="border: 1px solid #ddd;" ><%= i.strCity %>,<%= i.strProvince %></td>
+			<td style="border: 1px solid #ddd;" width="30%">
+				<table align="center">
+				<tr>
+					<td><button type="button" class="viewButton btn btn-primary" data-toggle="modal" data-target="#view"
+							data-vd1="<%=i.intEventNo%>"
+							data-vd2="<%=i.strEventName%>" 
+							data-vd3="<%=i.start%>" 
+							data-vd4="<%=i.end%>" 
+							data-vd5="<%=i.strEventDescription%>" 
+							data-vd6="<%=i.intEstimatedNumberofGuest%>"
+							data-vd7="<%=i.strCity%>" 
+							data-vd8="<%=i.strProvince%>">View </button></td>
+					<td><button type="button" class="editButton btn btn-primary" data-toggle="modal" data-target="#edit"
+							data-ed1="<%=i.intEventNo%>"
+							data-ed2="<%=i.strEventName%>" 
+							data-ed3="<%=i.start%>" 
+							data-ed4="<%=i.end%>" 
+							data-ed5="<%=i.strEventDescription%>" 
+							data-ed6="<%=i.intEstimatedNumberofGuest%>" 
+							data-ed7="<%=i.strCity%>" 
+							data-ed8="<%=i.strProvince%>"  >Edit </button></td>
+							<form method="POST" action="/organizer/ViewItemService">
+					<td><button type="submit" class=" btn btn-primary" value="<%=i.intEventNo%>" name="eventNo">Items/Service</button>  	</td>
+						</form>
+							<form method="POST" action="/organizer/cancelEvent" onsubmit="return confirm('Do you really want to cancel this event? Note: Some charges may apply.');">
+					<td><button type="submit" class="btn btn-cancel" value="<%=i.intEventNo%>" name="cancelevent"  >Cancel</button></td>
+							</form>
+				</tr>
+				</table>
+						</tr>
+							
+               
+		 <% }); %> <% } %>
+			 <tr/> 
+			 </table>
+                </div>
+     
+			
+			
+        </div>
+    </div>
+   
+   <!--==========================
+  MODAL VIEW 
+============================-->
+	<div class="modal fade" id="view" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">View Event Details</h4>
+				</div>
+				<div class="modal-body">
+					
+					<input type="hidden" class="form-control"id="modalVD1" name="" readonly> 
+					<label>Event Name</label>
+					<input type="text" class="form-control" id="modalVD2" name="" readonly> 
+					<label>Start Date & Time</label>
+					<input type="text"class="form-control" id="modalVD3" name="" readonly> 
+					<label>End Date & Time</label>
+					<input type="text" class="form-control"id="modalVD4" name="" readonly> 
+					<label>Event Description</label>
+					<textarea rows="2" class="form-control"id="modalVD5" name="" readonly> </textarea>
+					<label>Estimated Number Of Guest</label>
+					<input type="number" class="form-control"id="modalVD6" name="" readonly> 
+					<label>Event Location</label>
+					<input type="text"class="form-control" id="modalVD7" name="" readonly> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+	
+<!--==========================
+  MODAL EDIT
+============================-->
+	<div class="modal fade" id="edit" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">Edit Event Details</h4>
+				</div>
+				<div class="modal-body">
+				<form method="POST" action="/organizer/updateDetails" onsubmit="return confirm('Do you really want to modify these event details?');">
+					
+					<input type="hidden" class="form-control"id="modalED1" name="eventID" readonly> 
+					<label>Event Name</label>
+					<input type="text" class="form-control" id="modalED2" name="eventname" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"> 
+					<label>Start Date & Time</label>
+					<input type="text"class="form-control" id="modalED3" name="datestart" readonly> 
+					<label>End Date & Time</label>
+					<input type="text" class="form-control"id="modalED4" readonly> 
+					<label>Event Description</label>
+					<textarea rows="2" class="form-control"id="modalED5" name="eventdescription" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"> </textarea>
+					<label>Estimated Number Of Guest</label>
+					<input type="number" class="form-control"id="modalED6" name="estimatednumberofguest" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"> 
+					<label>Event Location</label>
+					<input type="text"class="form-control" id="modalED7" readonly> 
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-default" >Save</button>
+					</form>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+
+	  
+	  
+  
+  
+<%- include('../../../templates/footer.ejs') -%>
+        
+    <script>
+ 
+     $('.viewButton').on('click',function(){
+        
+            $('#modalVD1').val($(this).data('vd1'))
+			$('#modalVD2').val($(this).data('vd2'))
+			$('#modalVD3').val($(this).data('vd3'))
+			$('#modalVD4').val($(this).data('vd4'))
+			$('#modalVD5').val($(this).data('vd5'))
+			$('#modalVD6').val($(this).data('vd6'))
+			$('#modalVD7').val($(this).data('vd7')+","+$(this).data('vd8'))
+          })
+	 $('.editButton').on('click',function(){
+        
+            $('#modalED1').val($(this).data('ed1'))
+			$('#modalED2').val($(this).data('ed2'))
+			$('#modalED3').val($(this).data('ed3'))
+			$('#modalED4').val($(this).data('ed4'))
+			$('#modalED5').val($(this).data('ed5'))
+			$('#modalED6').val($(this).data('ed6'))
+			$('#modalED7').val($(this).data('ed7')+","+$(this).data('ed8'))
+          })	  
+	
+   </script>

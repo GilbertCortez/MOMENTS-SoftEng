@@ -1,0 +1,88 @@
+<%- include('../../../templates/businessmanNavbar.ejs') -%>
+
+<section id="services">
+  <div class="container wow fadeInUp">
+    <div class="row">
+      <div class="col-md-12">
+        <h3 class="section-title">Sales Reports</h3>
+        <div class="section-title-divider"></div>
+
+      </div>
+    </div>
+      <!-- YOUR CODES HERE -->
+
+  <div class="row" >
+  <div class="col-6 col-md-4"></div>
+  <div class="col-6 col-md-4">
+      <fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+
+             <div class="card"  style="width: 20rem; height:30%">
+              <div class="card-block" >
+
+              <h2 class="card-title"><strong></strong></h2>
+              <br>
+              <div class="my-overflow" style="overflow-y: auto;height: 200px; max-height: 200px; width: 370px">
+
+              <h2><strong><%=count%></strong></h2>
+              <h4>Total Item and Service Reservations.</h4>
+              <% if (selected == 1){ %>
+                <h5> For the month of <strong><%=month%>, <%=year%></strong> </h5>
+              <% } %>
+              </div>
+              <br>
+
+              </div>
+              </div>
+
+      </fieldset>
+  </div>
+
+</div> <!-- end of row -->
+  <div class="row">
+    <div class="col-2 col-md-4">
+    </div>
+
+    <form method="post" action="getSales">
+    <div class="col-2 col-md-3">
+      <h4>Select report here</h4>
+    <select name="month"  class="form-control">
+      <option value="January">Month of January</option>
+      <option value="February">Month of February</option>
+      <option value="March">Month of March</option>
+      <option value="April">Month of April</option>
+      <option value="May">Month of May</option>
+      <option value="June">Month of June</option>
+      <option value="July">Month of July</option>
+      <option value="August">Month of August</option>
+      <option value="September">Month of September</option>
+      <option value="October">Month of October</option>
+      <option value="November">Month of November</option>
+      <option value="December">Month of December</option>
+
+    </select>
+
+  </br>
+    <button type="submit" class="btn btn-services">View</button>
+  </div>
+
+    <div class="col-2 col-md-2">
+    </br>
+  </br>
+    <select name="year"  class="form-control">
+      <option value="2018">2018</option>
+      <option value="2017">2017</option>
+      <option value="2016">2016</option>
+
+    </select>
+
+    </br>
+
+    </div>
+</form>
+
+  </div>
+    <!-- END OF YOUR CODES -->
+
+</section>
+
+<%- include('../../../templates/footer.ejs') -%>

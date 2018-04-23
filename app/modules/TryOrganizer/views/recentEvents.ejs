@@ -1,0 +1,144 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+    <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp" style="min-height:400;">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">PREVIOUS EVENTS</h3>
+          <div class="section-title-divider"></div>
+     
+        </div>
+      </div>
+        
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+		
+		
+<%if (re.length==0){ %>
+          <center><h1>There's no previous event.</h1></center></div>
+            <%} else {%>
+
+<div class="container" >
+    <div class="row" >
+        <div align=center style="overflow-y: scroll; min-height:400;">
+		
+				<table>
+				<tr>
+				<th>Event Name
+                <th>Start
+				<th>End
+				<th>Location
+				<th>Actions
+				<tr>
+		
+		<% re.forEach(function(i){ %>
+		
+			<td><%= i.strEventName %>
+			<td><%= i.start %>
+			<td><%= i.end%>
+			<td><%= i.strCity %>,<%= i.strProvince %>
+			<form method="post" action="VIewItemServiceForRecent">
+					<td>
+					
+						<table>
+							<tr>
+								<td><button type="button" class="viewButton btn btn-primary" data-toggle="modal" data-target="#view"
+										data-vd1="<%=i.intEventNo%>"
+										data-vd2="<%=i.strEventName%>" 
+										data-vd3="<%=i.start%>" 
+										data-vd4="<%=i.end%>" 
+										data-vd5="<%=i.strEventDescription%>" 
+										data-vd6="<%=i.intEstimatedNumberofGuest%>"
+										data-vd7="<%=i.strCity%>" 
+										data-vd8="<%=i.strProvince%>">View Details</button></td>
+								<td><button type="submit" class=" btn btn-primary" name="eventNo" value="<%=i.intEventNo%>">Items/Service</button></td>
+								
+							</tr>
+						
+						</table></td>
+						</form>
+			 <tr/>
+			 <% }); %>
+                <% } %>
+			
+			 </table>
+        </div>
+    </div></div>
+   
+   <!--==========================
+  MODAL VIEW 
+============================-->
+	<div class="modal fade" id="view" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">View Event Details</h4>
+				</div>
+				<div class="modal-body">
+					<label>Event ID</label>
+					<input type="text" class="form-control"id="modalVD1" name="" readonly> 
+					<label>Event Name</label>
+					<input type="text" class="form-control" id="modalVD2" name="" readonly> 
+					<label>Start Date & Time</label>
+					<input type="text"class="form-control" id="modalVD3" name="" readonly> 
+					<label>End Date & Time</label>
+					<input type="text" class="form-control"id="modalVD4" name="" readonly> 
+					<label>Event Description</label>
+					<textarea rows="2" class="form-control"id="modalVD5" name="" readonly> </textarea>
+					<label>Estimated Number Of Guest</label>
+					<input type="number" class="form-control"id="modalVD6" name="" readonly> 
+					<label>Location</label>
+					<input type="text"class="form-control" id="modalVD7" name="" readonly> 
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+	
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+
+	  
+	  
+  
+  
+<%- include('../../../templates/footer.ejs') -%>
+        
+    <script>
+ 
+     $('.viewButton').on('click',function(){
+        
+            $('#modalVD1').val($(this).data('vd1'))
+			$('#modalVD2').val($(this).data('vd2'))
+			$('#modalVD3').val($(this).data('vd3'))
+			$('#modalVD4').val($(this).data('vd4'))
+			$('#modalVD5').val($(this).data('vd5'))
+			$('#modalVD6').val($(this).data('vd6'))
+			$('#modalVD7').val($(this).data('vd7')+","+$(this).data('vd8'))
+          })
+
+   </script>

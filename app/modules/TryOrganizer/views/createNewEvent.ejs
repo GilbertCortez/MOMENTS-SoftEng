@@ -1,0 +1,232 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+<!--==========================
+  MODAL STEPS
+============================-->
+	<div class="modal fade" id="steps" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">STEPS IN ORGANIZING EVENT WITH 'MOMENTS'</h4>
+				</div>
+				<div class="modal-body">
+					<p><strong>Step 1:</strong> Fill up a form with your EVENT INFORMATION.</p>
+					<p><strong>Step 2:</strong> Search Item & Service for your Event </p>
+					<p><strong>Step 3:</strong> Choose SPECIFIC ITEMS & SERVICES </p>
+					<p><strong>Step 4:</strong> Finalize your Event Details.</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+
+    <!--==========================
+  Services Section
+============================-->
+	<section id="services" >
+		<div class="container wow fadeInUp" style="min-height:400;">
+			<div class="row">
+				<div class="col-md-14">
+					<h3 class="section-title">ORGANIZE NEW EVENT <a href="#" data-toggle="modal" data-target="#steps" ><span class="glyphicon glyphicon-info-sign"></span></a></h3>
+					<div class="section-title-divider"></div>
+					<div class="progress">
+					 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100" style="width:0%">
+    0% Completed in Organizing your Event
+	</div>                                                      
+  </div>
+     
+				</div>
+			</div>
+<div class="row" >
+        <!-- YOUR CODES HERE -->
+		<br>
+		<h2><strong>STEP 1</strong>: Event Information</h2>
+		<hr>
+		
+		<div class="col-6 col-md-2"></div>
+			<div class="col-6 col-md-8">
+				<fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray;height: 620px" >
+					<form method="post" action="/organizer/createEvent" onsubmit="return confirm('Do you want to proceed to step 2?'); ">
+                      
+						<div class="form-group">
+                             <h5><font style="color:red;">DISCLAIMER:(For preparation purposes, event must occur (3) working weeks after filling up this form)</font></h5>
+							<label for="EventName">Event Name</label>
+							<input type="text" class="form-control" name="eventname"id="EventName" placeholder="Event name(eg. Grade's Burial, Sean's Birthday)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+							<br>
+							<label for="EventLocation">Event Location(City,Province)</label>
+							
+					
+							
+							  		<script >
+								function activatePlacesSearch(){
+
+								var input = document.getElementById('searchbox');
+								var options = {
+								  types: ['(regions)'],
+								  componentRestrictions: {country: "ph"}
+								 };
+								var autocomplete = new google.maps.places.Autocomplete(input,options);
+								
+				
+								
+							}
+							</script>
+							<input type="text"  class="form-control" name="location" id="searchbox" placeholder="Sta. Mesa, Manila or Marilao, Bulacan"  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;"required>
+							<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCURW8qYuJPFWDgCQLx2iLWBNsWHbZ4FQg&libraries=places&callback=activatePlacesSearch"></script>
+							
+							<br>
+							
+							<label for="EventDescription">Event Description</label>
+							<input type="text" class="form-control" name="eventdescription" id="EventDescription" placeholder="Event Description(eg. Happy gathering of the family)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+							<br>
+							<label for="EstimatedNumberOfGuest">Estimated Number of Guest</label>
+							<input type="number" class="form-control" name="estimatednumberofguest" id="EstimatedNumberOfGuest" required >
+							<br>
+						<label for="EventStart">Event Start</label>
+							<table align="center">
+							<tr>
+							<td>Date:
+							<td><input type="date"  class="form-control" name="eventdatestart" id="EventDateStart" onchange="endDateGenerate()"  required>
+							<td>&nbsp;&nbsp;
+							<td>Time: 
+							<td><input type="time"  class="form-control" name="eventtimestart" id="EventTimeStart" value="00:00"  onchange="endDateGenerate()" required>
+							</tr>
+							</table>
+
+							
+							<script>
+                                var d=new Date();
+                                
+								var year=d.getFullYear();
+								var month=d.getMonth() +1;
+								var day=d.getDate() +21 ;
+
+								if(day>31)
+								{day=day-31;
+								month=month+1
+								}
+								if(month>12)
+								{
+								month=month-12;
+								year++;
+								}
+
+								var fulldate=year+"-";
+
+								if(month<10)
+								fulldate=fulldate+"0"+month;
+								else
+								fulldate=fulldate+month;
+
+								fulldate=fulldate+"-";
+								
+								if(day<10)
+								fulldate=fulldate+"0"+day;
+								else
+								fulldate=fulldate+day;
+								
+								document.getElementById("EventDateStart").value= fulldate;
+								document.getElementById("EventDateStart").min= fulldate;
+							</script>
+
+							<br>
+							<label for="NumberOfHours">Number of Hours</label>
+							<input type="number" class="form-control" name="numberofhours" min=1 id="NumberOfHours" value=1 onchange="endDateGenerate()" required >
+							<br>
+							<label for="EventEnd">Event End Date & Time</label>
+							<table align="center">
+							<tr>
+							<td>Date:
+							<td><input type="date"  class="form-control" name="eventdateend" id="EventDateEnd"   readonly required>
+							<td>&nbsp;&nbsp;
+							<td>Time:
+							<td><input type="time"  class="form-control" name="eventtimeend" id="EventTimeEnd"   readonly required>
+							</tr>
+							</table>
+								<script>
+								function endDateGenerate(){
+								var numOfHours=document.getElementById("NumberOfHours").value;
+								var startTime=document.getElementById("EventTimeStart").value;
+							    var splittedTime=startTime.split(":");
+								var endHours=parseInt(splittedTime[0])+parseInt(numOfHours);
+								var daysToAdd=0;
+								var startDate=document.getElementById("EventDateStart").value;
+								var splittedDate=startDate.split("-");
+								year=parseInt(splittedDate[0]);
+								day=parseInt(splittedDate[2]);
+								month=parseInt(splittedDate[1]);
+								
+								if(endHours>=24)
+								daysToAdd=parseInt(parseInt(endHours)/24);
+								
+								endHours=parseInt(endHours)-(24*parseInt(daysToAdd));
+									
+									
+								day=day+daysToAdd;
+							
+								if(day>31){
+								month=month+1;
+								day=day-31;
+								}
+							
+							
+								if(month>12)
+								{
+								month=month-12;
+								year++;
+								}
+								
+								fulldate=year+"-";
+						
+								if(month<10)
+								fulldate=fulldate+"0"+month;
+								else
+								fulldate=fulldate+month;
+
+								fulldate=fulldate+"-";
+								
+								if(day<10)
+								fulldate=fulldate+"0"+day;
+								else
+								fulldate=fulldate+day;
+								
+								document.getElementById("EventDateEnd").value=fulldate;
+								if(endHours<10){
+								document.getElementById("EventTimeEnd").value="0"+endHours+":"+splittedTime[1]+":00";
+                                }
+								else{
+								document.getElementById("EventTimeEnd").value=endHours+":"+splittedTime[1]+":00";
+                                }
+                                      
+								}
+                              
+								</script>
+							
+							<br>
+							<br>
+								
+						</div>
+						
+				</fieldset>
+				
+			</div>
+	
+      </div>
+	  	<div align="center">
+								<button type="submit" class="btn btn-primary"onclick="endDateGenerate()">Proceed(<strong>Step 2</strong>:Lists of Items & Services needed for your Event)</button>
+				
+							</div>
+	  
+
+					</form>
+	<!-- END OF YOUR CODES -->
+    </div>  
+  </section>
+
+  
+<%- include('../../../templates/footer.ejs') -%>
+<script src="/assets/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>

@@ -1,0 +1,158 @@
+//THIS IS THE CONTROLLER FOR ORGANIZER
+
+//module used in this controller
+var express = require('express');
+
+//declaration of routes
+var router = express.Router();
+var authMiddleware = require('../../core/auth');
+var db = require('../../lib/database')();
+router.use(authMiddleware.hasAuth);
+
+
+router.get('/', (req,res) =>{
+
+    res.render('organizer/views/organizerDashboard', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+router.post('/', (req,res) =>{
+    res.render('organizer/views/organizerDashboard', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+router.get('/createEvent', (req,res) =>{	
+ res.render('organizer/views/createNewEvent', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+router.get('/itemServiceList', (req,res) =>{
+
+	//var itemList=`${req.body.itemarrayfield}`.split(",");
+	//var serviceList=`${req.body.servicearrayfield}`.split(",");
+	var itemList=['Projector','Chairs','Tables'];
+	var serviceList=['Catering','Sounds','Music'];
+	var specificItemList=[[[]]];
+	var specificServiceList=[[[]]];
+	func1();
+	
+	
+	
+	function func1(){
+		
+serviceList.forEach(function(i,serviceListCounter){
+	db.query(`SELECT * from tblGenService WHERE LOWER(strServiceName) LIKE LOWER("%${serviceList[serviceListCounter]}%") 
+			OR LOWER(strServiceName) LIKE LOWER("${serviceList[serviceListCounter]}%") 
+			OR LOWER(strServiceName) LIKE LOWER("%${serviceList[serviceListCounter]}") 
+			OR LOWER(strServiceDescription) LIKE LOWER("%${serviceList[serviceListCounter]}%") 
+			OR LOWER(strServiceDescription) LIKE LOWER("${serviceList[serviceListCounter]}%") 
+			OR LOWER(strServiceDescription) LIKE LOWER("%${serviceList[serviceListCounter]}")`, (err,results, fields) =>{
+				
+				specificServiceList[serviceListCounter]=results;
+						if(serviceListCounter==(serviceList.length-1)){
+					func2();
+				}
+				
+			});
+	
+			});
+		
+	}
+	function func2(){
+		
+	itemList.forEach(function(i,itemListCounter){
+	
+	db.query(`SELECT * from tblItem WHERE LOWER(strItemName) LIKE LOWER("%${i[itemListCounter]}%") 
+			OR LOWER(strItemName) LIKE LOWER("${i[itemListCounter]}%") 
+			OR LOWER(strItemName) LIKE LOWER("%${i[itemListCounter]}") 
+			OR LOWER(strItemDescription) LIKE LOWER("%${i[itemListCounter]}%") 
+			OR LOWER(strItemDescription) LIKE LOWER("${i[itemListCounter]}%") 
+			OR LOWER(strItemDescription) LIKE LOWER("%${i[itemListCounter]}")`, (err,results, fields) =>{
+			console.log(itemListCounter);
+				//console.log(results);
+			specificItemList[itemListCounter]=results;
+			console.log(specificItemList[itemListCounter]);
+					if(itemListCounter==(itemList.length-1)){
+					func3();
+				}
+			});
+			
+	});
+	func3();
+	}
+	function func3(){
+			console.log("SERVICE TO:");
+			console.log(specificServiceList);
+			console.log("ITEM TO:");
+			console.log(specificItemList);
+	res.render('organizer/views/chooseSpecificItemService', {specItem: specificItemList,specService: specificServiceList,services: serviceList,items: itemList,user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+	}
+	});
+router.post('/createEvent', (req,res) =>{ 
+
+	var eventlocation=`${req.body.location}`.split(",");
+	var city=eventlocation[0];
+	var province=eventlocation[1];
+	var starttime=`${req.body.eventdatestart}`+" "+`${req.body.eventtimestart}`+":00";
+	var endtime=`${req.body.eventdateend}`+" "+`${req.body.eventtimeend}`+":00";
+	
+	console.log(starttime+" "+endtime);
+	db.query(`INSERT INTO tblEvent(intOrganizerID,strEventName,dateEventStart,dateEventEnd,strEventDescription,intEstimatedNumberofGuest,strCity,strProvince)
+				values(${req.session.user.intOrganizerID},"${req.body.eventname}","${starttime}","${endtime}","${req.body.eventdescription}","${req.body.estimatednumberofguest}","${city}","${province}")`, (err,results, fields) =>{
+
+	if(err)
+	console.log(err);
+db.query(`select intEventNo from tblevent order by 1 desc limit 1`, (err,currenteventno, fields) =>{
+		console.log(currenteventno);
+	res.render('organizer/views/itemServiceList', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`,curreventno:currenteventno[0]});
+	});
+	});
+	});
+	
+router.get('/upcomingEvents', (req,res) =>{
+	db.query(`SELECT *, DATE_FORMAT(dateEventStart , "%M %e, %Y %r") AS start,DATE_FORMAT(dateEventEnd , "%M %e, %Y %r") AS end from tblEvent where now()<dateEventEnd AND boolEventStatus=true AND  ${req.session.user.intOrganizerID}=intOrganizerID ORDER BY start`, (err,results, fields) =>{
+      console.log(results);
+    res.render('organizer/views/Events', {re:results, user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+  });      
+});
+router.get('/cancelledEvents', (req,res) =>{
+	db.query(`SELECT *, DATE_FORMAT(dateEventStart , "%M %e, %Y %r") AS start,DATE_FORMAT(dateEventEnd , "%M %e, %Y %r") AS end from tblEvent where boolEventStatus=0 AND  ${req.session.user.intOrganizerID}=intOrganizerID ORDER BY start`, (err,results, fields) =>{
+      console.log(results);
+    res.render('organizer/views/cancelledEvents', {re:results, user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+  });      
+});
+router.get('/recentEvents', (req,res) =>{
+	db.query(`SELECT *, DATE_FORMAT(dateEventStart , "%M %e, %Y %r") AS start,DATE_FORMAT(dateEventEnd , "%M %e, %Y %r") AS end from tblEvent where now()>dateEventEnd AND boolEventStatus=1 AND  ${req.session.user.intOrganizerID}=intOrganizerID ORDER BY start`, (err,results, fields) =>{
+      console.log(results);
+    res.render('organizer/views/recentEvents', {re:results, user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+  });  
+ });
+router.post('/cancelEvent', (req,res)=>{
+	db.query(`UPDATE tblevent SET boolEventStatus=0 WHERE intEventNo=${req.body.cancelevent}`, (err,results, fields) =>{
+	 if(err)
+		console.log(err);
+	else
+	res.redirect('/organizer/upcomingEvents');
+	});
+});
+router.post('/updateDetails', (req,res)=>{
+	
+	db.query(`UPDATE tblEvent SET strEventDescription="${req.body.eventdescription}",strEventName="${req.body.eventname}",intEstimatedNumberofGuest="${req.body.estimatednumberofguest}" WHERE intEventNo = ${req.body.eventID}` , (err,results, fields) =>{
+    if(err)
+		console.log(err);
+	else
+	res.redirect('/organizer/upcomingEvents');
+	});
+	});
+
+router.get('/unpaidAccounts', (req,res)=>{
+    res.render('organizer/views/unpaidAccounts', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+
+router.get('/paidAccounts', (req,res)=>{
+    res.render('organizer/views/paidAccounts', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+router.get('/profile', (req,res)=>{
+    res.render('organizer/views/profile', {user: `${req.session.user.strOrganizerFName}`+" "+ `${req.session.user.strOrganizerLName}`});
+});
+
+exports.organizer = router;

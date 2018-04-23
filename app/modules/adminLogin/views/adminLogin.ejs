@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Moments</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+    
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+  
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+  
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link href="favicon.ico" rel="shortcut icon">
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet"> 
+  
+     <!-- Sweet Alert -->
+   <link href="/assets/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet"> 
+  
+  <!-- Bootstrap CSS File -->
+  <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Libraries CSS Files -->
+  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+  
+  <!-- Main Stylesheet File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+ 
+  <!-- For dynamic date and time -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/assets/date_time.js"></script>
+  
+
+
+
+<!-- =======================================================
+  Theme Name: Imperial
+  Theme URL: https://bootstrapmade.com/imperial-free-onepage-bootstrap-theme/
+  Author: BootstrapMade.com
+  Author URL: https://bootstrapmade.com
+======================================================= -->
+</head>
+
+<body>
+  <div id="preloader"></div>
+  
+<!--==========================
+  Hero Section
+============================-->
+  <section id="hero">
+    <div class="hero-container">
+      <div class="wow fadeIn">
+        <div class="hero-logo">
+         <img class="" src="/assets/img/logo.png" alt="Imperial">
+        </div>
+        
+        <h1>Welcome to Moments</h1>
+        <h2> <span class="rotating"> You create your Events, We provide a platform, To cherish your MOMENTS</span></h2>
+        
+		
+		<div class="actions">
+		<br>
+		<br>
+		  <a  class="btn-services" data-toggle="modal" data-target="#AdminLogin">Admin</a>
+		 
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+	
+   <!--==========================
+  modal for login admin
+============================-->  
+<div class="modal fade" id="AdminLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">ADMIN</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/login/adminLogin">
+              <div class="form-group">
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" id="Email" name="email" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" name="password" id="Password" required pattern="[A-Za-z0-9]+" title="Please enter your correct password.">
+				<div align="right"><input type="checkbox" onclick="AdminShowPassword()">Show Password</div>
+				
+
+<script>
+function AdminShowPassword() {
+    var x = document.getElementById("Password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+				<hr>
+              <center><button type="submit" class="btn btn-services">Log In</button><center>
+           </div>
+                  </form>
+		
+	</div>
+  </div>
+</div>
+</div>
+
+<!--==========================
+  Footer
+============================--> 
+  <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright">
+              &copy; Copyright <strong>Moments</strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+              <!-- 
+                All the links in the footer should remain intact. 
+                You can delete the links only if you purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Imperial
+              -->
+            
+            </div>
+          </div>
+        </div>
+      </div>
+  </footer><!-- #footer -->
+  
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+    
+   <!-- Required JavaScript Libraries -->
+  <script src="/assets/lib/jquery/jquery.min.js"></script>
+  <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/lib/superfish/hoverIntent.js"></script>
+  <script src="/assets/lib/superfish/superfish.min.js"></script>
+  <script src="/assets/lib/morphext/morphext.min.js"></script>
+  <script src="/assets/lib/wow/wow.min.js"></script>
+  <script src="/assets/lib/stickyjs/sticky.js"></script>
+  <script src="/assets/lib/easing/easing.js"></script>
+
+ <script src="/assets/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+  
+  <!-- Template Specisifc Custom Javascript File -->
+  <script src="/assets/js/custom.js"></script>
+  
+  <script src="/assets/contactform/contactform.js"></script>
+        
+<% if (alertprovider == 1 ) { %>
+        <script>swal("Error!", "Your email already exists, use another one", "error");</script>
+    <% } %>
+<% if (alertorganizer == 1 ) { %>
+        <script>swal("Error!", "Your email already exists, use another one", "error");</script>
+    <% } %>
+<% if (wrongemail == 1 ) { %>
+        <script>swal("Error!", "You have entered a wrong email/password. Try again!", "error");</script>
+    <% } %>
+  
+    
+</body>
+</html>

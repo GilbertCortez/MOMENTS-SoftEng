@@ -1,0 +1,286 @@
+
+		  <%- include('../../../templates/organizerNavbar.ejs') -%>
+<style>
+table, td, th {    
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+<script>document.title = "Request For Cancelled Item/Service";</script>
+    <!--==========================
+  Services Section
+============================-->
+	<section id="services">
+		<div class="container wow fadeInUp"  style="min-height:400;">
+			<div class="row">
+				<div class="col-md-12">
+			
+<h3 class="section-title">CANCELLED ITEMS/SERVICES(<%= eventdetails[0].strEventName %>)</h3>
+					<div class="section-title-divider"></div>
+					<div class="progress">
+					 <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="0"
+  aria-valuemin="0" aria-valuemax="100" style="width:50%">
+    75% Completed in Organizing your Event
+	</div>
+  </div>
+ 	
+
+
+
+	
+    
+
+  
+				</div>
+			</div>
+	<div class="row">
+        <!-- YOUR CODES HERE -->
+ <form method="post" action="/organizer/ItemService" id="addItemService">  </form>
+  <form method="post" action="/organizer/ViewItemService" id="ViewItemService"></form>
+		<div class="container" id="accordion">
+  <ul class="breadcrumb">
+  <li><button class="btn btn-info" type="button" id="itembread" onclick="itemOpen()" >Items</button></li>
+  <li><button class="btn btn-info" type="button"  id="servicebread" onclick="serviceOpen()"  >Services</button></li>
+  
+  <li><input type="hidden" value="<%= currevent %>"  form="ViewItemService" name="eventNo"><button class="btn btn-submit" type="submit" form="ViewItemService">View Items/Service for this upcoming event </button></li>
+  <li>  
+  <input type="hidden" value="<%= currevent %>"  name="eventNo" form="addItemService">
+       <button class="btn btn-submit" type="submit" form="addItemService">ADD MORE ITEMS/SERVICE FOR YOUR EVENT<span class="glyphicon glyphicon-search" aria-hidden="true" ></span></button>
+  	
+	   </li>
+
+	  
+</ul>
+
+  <div id="itemsCollapse" >
+
+   <h3>ITEMS</h3>
+    <hr>
+      <%if (item.length==0){ %>
+            <h5>There's no cancelled item reservation for this event.</h5>
+            <%} else {%>
+	<div style="overflow-y: scroll;min-height:400;">
+    <table width="95%" >
+	<tr style="border: 1px solid #ddd;">
+		<th>Item Name</th>
+		<th>Final Price</th>
+		<th>Estimated Price</th>
+		<th>Refund Percentage</th>
+		<th>Date of Use</th>
+		<th>Actions</th>
+
+	</tr>
+    <% item.forEach(function(i){ %>
+	<tr style="border: 1px solid #ddd;">
+	
+    <td><%= i.strItemName%></td>
+	<td><%= i.decRentalFinalPrice%></td>
+	<td><%= i.strEstimatedPrice%></td>
+	<td><%= i.decItemRefundPercentage%></td>
+	<td><%= i.dateofUse%></td>
+		<form method="post" action="/organizer/requestCancelledItem">
+	<td><a class="itemdescription btn btn-primary" href="" data-toggle="modal" data-target="#itemdesc" data-itemdescription="<%= i.strItemDescription %>">Description</a> 
+		<a class="providerButton btn btn-primary" href="" data-toggle="modal" data-target="#providerdetails"
+				data-pd1="<%= i.strProviderBusinessName %>"
+		data-pd2="<%= i.strProviderFName %>"
+		data-pd3="<%= i.strProviderLName  %>"
+		data-pd4="<%= i.strProviderTel %>"
+		data-pd5="<%= i.strProviderCell %>"
+		data-pd6="<%= i.strProviderEmail %>"
+		data-pd7="<%= i.strCity  %>"
+		data-pd8="<%= i.strProvince %>"
+		>Provider</a>
+		 <input type="hidden" value="<%= currevent %>"  name="eventNo">
+		<input type="hidden" name="transactionno" value="<%= i.intTransactionNo %>">
+		<input type="hidden" name="itemno" value="<%= i.intItemNo %>">
+		<button class="btn btn-cancel" type="submit" onclick="return confirm('Do you want to request for reservation again for this item?');">Request</button>
+		</td>
+				
+		
+		
+    </tr></form><% }); %> <% } %>
+    </table>
+	</div>
+	<br>
+
+  </div>
+   <div id="servicesCollapse" style="display:none;">
+   
+   <h3>SERVICES</h3>
+    <hr>
+       <%if (service.length==0){ %>
+            <h5>There's no cancelled service reservation for this event.</h5>
+            <%} else {%>
+	<div style="overflow-y: scroll;min-height:400;">
+    <table width="95%" >
+	<tr style="border: 1px solid #ddd;">
+		<th>Item Name</th>
+		<th>Final Price</th>
+		<th>Estimated Price</th>
+		<th>Refund Percentage</th>
+		<th>Date of Use</th>
+		<th>Actions</th>
+
+	</tr>
+    <% service.forEach(function(i){ %>
+	<tr style="border: 1px solid #ddd;">
+	
+    <td><%= i.strServiceName%></td>
+	<td><%= i.decRentalFinalPrice%></td>
+	<td><%= i.strEstimatedPrice%></td>
+	<td><%= i.decServiceRefundPercentage%></td>
+	<td><%= i.dateofUse%></td>
+		<form method="post" action="/organizer/requestCancelledService">
+	<td><a class="servicedescription btn btn-primary" href="" data-toggle="modal" data-target="#servicedesc" data-servicedescription="<%= i.strServiceDescription%>" >Description</a> 
+		<a class="providerButton btn btn-primary" href="" data-toggle="modal" data-target="#providerdetails"
+		data-pd1="<%= i.strProviderBusinessName %>"
+		data-pd2="<%= i.strProviderFName %>"
+		data-pd3="<%= i.strProviderLName  %>"
+		data-pd4="<%= i.strProviderTel %>"
+		data-pd5="<%= i.strProviderCell %>"
+		data-pd6="<%= i.strProviderEmail %>"
+		data-pd7="<%= i.strCity  %>"
+		data-pd8="<%= i.strProvince %>"
+		>Provider</a><form method="post" action="/organizer/requestCancelledService">
+		 <input type="hidden" value="<%= currevent %>"  name="eventNo">
+		<input type="hidden" name="transactionno" value="<%= i.intTransactionNo %>">
+		<input type="hidden" name="genserviceno" value="<%= i.intGenServiceNo %>">
+		<button class="btn btn-cancel" type="submit" onclick="return confirm('Do you want to request for reservation again for this service?');">Request</button>
+		</form>
+		</td>
+				
+				
+		
+		
+    </tr></form><% }); %><% } %>
+    </table>
+	</div>
+	<br>
+	
+  </div>
+</div>
+
+<!--==========================
+  MODAL item description
+============================-->
+	<div class="modal fade" id="itemdesc" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">ITEM DESCRIPTION</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="ItemDetailsModal" style= "height: 100px;resize:none;" class="form-control" rows=3 readonly></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+	
+	<!--==========================
+  MODAL PROVIDER
+============================-->
+	<div class="modal fade" id="providerdetails" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">PROVIDER DETAILS</h4>
+				</div>
+				<div class="modal-body">
+					<label>Business Name</label>
+					<input class="form-control" type="text" id="ModalPD1" readonly>
+					<label>Provider Name</label>
+					<input class="form-control" type="text" id="ModalPD2" readonly>
+					<label>Telephone</label>
+					<input class="form-control" type="text" id="ModalPD3" readonly>
+					<label>Cellphone</label>
+					<input class="form-control"  type="text" id="ModalPD4" readonly>
+					<label>Email</label>
+					<input class="form-control" type="text" id="ModalPD5" readonly>
+					<label>Location</label>
+					<input class="form-control" type="text" id="ModalPD6" readonly>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+	
+	<!--==========================
+  MODAL service description
+============================-->
+	<div class="modal fade" id="servicedesc" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">SERVICE DESCRIPTION</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="ServiceDetailsModal" style= "height: 100px;resize:none;" class="form-control" rows=3 readonly></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>  
+		</div>
+	</div>
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>  
+  </section>
+  
+<%- include('../../../templates/footer.ejs') -%>
+
+<script>
+function itemOpen(){
+document.getElementById('servicesCollapse').style.display = "none";
+
+document.getElementById('itemsCollapse').style.display = "block";
+
+}
+function serviceOpen(){
+document.getElementById('itemsCollapse').style.display = "none";
+document.getElementById('servicesCollapse').style.display = "block";
+}
+
+</script>
+<script>
+	 $('.itemdescription').on('click',function(){
+        
+            $('#ItemDetailsModal').val($(this).data('itemdescription'))
+	
+          })	
+		   $('.servicedescription').on('click',function(){
+        
+            $('#ServiceDetailsModal').val($(this).data('servicedescription'))
+	
+          })	
+		   $('.providerButton').on('click',function(){
+        
+            $('#ModalPD1').val($(this).data('pd1'))
+			$('#ModalPD2').val($(this).data('pd2')+","+$(this).data('pd3'))
+			$('#ModalPD3').val($(this).data('pd4'))
+			$('#ModalPD4').val($(this).data('pd5'))
+			$('#ModalPD5').val($(this).data('pd6'))
+			$('#ModalPD6').val($(this).data('pd7')+","+$(this).data('pd8'))
+          })	
+		  </script>

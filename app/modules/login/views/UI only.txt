@@ -1,0 +1,144 @@
+<!--==========================
+  modal for view profile
+============================-->  
+<div class="modal fade" id="tester" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID" placeholder="" readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" readonly>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" readonly>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelephoneNumber" readonly>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="number" class="form-control" id="CellphoneNumber" readonly>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" readonly>
+				<br>
+
+              <button type="close" class="btn btn-services" data-dismiss="modal" data-toggle="modal" data-target="#editProfile" >Edit</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+   <!--==========================
+  modal for editOrgProfile
+============================-->  
+<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EDIT YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID" placeholder="" readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" required>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" required>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelephoneNumber" required>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="number" class="form-control" id="CellphoneNumber" required>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" required>
+				<br>
+
+              <button type="submit" class="btn btn-services" data-toggle="modal" data-target="#" >Submit</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+<!--==========================
+  modal for create event
+============================-->  
+<div class="modal fade" id="tester" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">ORGANIZE NEW EVENT</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="EventName">Event Name</label>
+                <input type="" class="form-control" id="EventName" placeholder="Event name(eg. Grade's Burial, Sean's Birthday)" >
+				<br>
+				<label for="EventLocation">Event Location</label>
+                <table width=600px>
+					<tr>
+					<td style="text-align: left;">Country:</td>
+					<td style="text-align: left;">Province:</td>
+					<td style="text-align: left;">City/Municipality:</td>
+
+					</tr><tr>
+					<td style="text-align: left;">
+					<select name="country" id="country" onchange="setStates();">
+
+
+					  <option value="Philippines">Philippines</option>
+					</select>
+					</td>
+
+					<td style="text-align: left;">
+					<select name="state" id="state" onchange="setCities();">
+					  <option value="">Please select a Country</option>
+					</select>
+					</td>
+					<td style="text-align: left;">
+					<select name="city"  id="city">
+					  <option value="">Please select a Country</option>
+					</select>
+					</td>
+					</tr>
+
+					</table>
+				<br>
+				<label for="EventDescription">Event Description</label>
+                <input type="" class="form-control" id="EventDescription" placeholder="Event Description(eg. Happy gathering of the family)" >
+				<br>
+				<label for="EventDate">Event Date</label>
+			
+               
+				<br>
+
+              <button type="submit" class="btn btn-services" data-dismiss="modal" >Create</button>
+				<button type="clear" class="btn btn-services" data-dismiss="modal" >Clear</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>

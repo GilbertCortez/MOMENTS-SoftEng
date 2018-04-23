@@ -1,0 +1,186 @@
+<%- include('../../../templates/businessmanNavbar.ejs') -%>
+
+    <!--==========================
+  Services Section
+============================-->
+
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Reservations</h3>
+          <div class="section-title-divider"></div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+        <% if (contents.length == 0 || contents == 'undefined' || contents == 'NULL'){%>
+        <center><h3>No Reservations</h3></center>
+        <% } else { %>
+
+        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+        <!-- <table width="1000px" border="2px" align="center"> -->
+        <thead>
+            <tr>
+            <th>Reservation No</th>
+            <th>Event Name</th>
+            <th>Organizer Name</th>
+            <th>Event Status</th>
+
+            <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% contents.forEach(function (i) {  %>
+
+
+            <tr>
+                <form>
+                <input type="hidden" class="form-control" name="number" value="<%=i.inteventno%>">
+
+                <td align="center"><%=i.inttransactionno%></td>
+                <td align="center"><%=i.strEventName%></td>
+                <td align="center"><%=i.strOrganizerFName%>&nbsp;<%=i.strOrganizerLName%></td>
+                <% if(i.boolEventStatus==0){%>
+                    <td align="center"><font style="color:red;">Cancelled</font></td>
+                <% } %>
+                <% if(i.boolEventStatus==1){%>
+                <td align="center">Active</td>
+                <% } %>
+
+                <td align="center">
+
+                <button type="submit" class="viewbtn btn btn-secondary btn-sm" formmethod="post" formaction="/businessman/transactionList" data-organizername="<%=i.strOrganizerFName%>"
+                data-eventname="<%=i.strEventName%>"
+                data-eventstart="<%=i.strEventStart%>"
+                data-eventend="<%=i.strEventEnd%>"
+                data-eventlocation="<%i.strEventCity%>"
+                data-eventguests="<%i.intEstimatedNumberOfGuests%>"
+                data-eventdescription="<%=i.strEventDescription%>"
+                data-organizerbusiness="<%=i.strOrganizerBusinessName%>"
+                data-transactionno="<%=i.inttransactionno%>"
+                data-event="<%=i.inteventno%>"
+                        >View Details</button>
+
+
+
+                </td>
+                </form>
+            </tr>
+
+
+
+            <% }); %>
+        </tbody>
+
+        </table>
+        <% } %>
+
+        <br>
+        <br>
+
+        <script>
+
+        $(document).ready(function() {
+          $('#example').DataTable( {
+              select: true
+          } );
+        } );
+        </script>
+
+
+<!--==========================
+  modal for view
+============================-->
+<div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<!--			<h3 class="modal-title" id="lineModalLabel">YOUR ITEM</h3>-->
+		</div>
+		<div class="modal-body">
+
+        <p><strong>Organizer's Name</strong></p><p class="organizerName"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Name: </p><p class="name"></p>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Time: </p><p class="start"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Time: </p><p class="end"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Number of Guests: </p><p class="guests">
+            </p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Location: </p><p class="location"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Description: </p><p class="description"></p>
+		<br>
+
+		<h4>Items or Sevice to be Reserved</h4>
+			<table width="100%" border="1px" align=center>
+				<tr>
+					<th>No.</th>
+                    <th>Item/Service</th>
+					<th>Date Of Claim</th>
+					<th>Total Amount to pay</th>
+                    <th>Action</th>
+
+				</tr>
+				<tr>
+					<td></td>
+					<td id="ItemName"> One </td>
+					<td></td>
+					<td></td>
+					<td><input id="Amount" readonly></td>
+                    <td><button type="submit" class="editbutton btn btn-primary" data-toggle="modal" data-target="#editAmount">Edit Amount</button></td>
+				</tr>
+
+			</table>
+			<br>
+
+			<table width="70%" border="1px" align=center>
+				<tr>
+					<th>Total Amount to be paid</th>
+					<td>900000</td>
+				</tr>
+				<tr>
+					<th>Balance:</th>
+					<td>100</td>
+				</tr>
+			</table>
+
+		</div>
+	</div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+	<!-- END OF YOUR CODES -->
+      </div>
+    </div>
+  </section>
+
+
+<%- include('../../../templates/footer.ejs') -%>
+
+      <script>
+          $('.send').on('click',function(){
+              $('#Amount').val($(this).data('itemamount'))
+
+          })
+          $('.viewbtn').on('click', function(){
+              $('.organizerName').text($(this).data('organizername'))
+              $('.name').text($(this).data('eventname'))
+              $('.start').text($(this).data('eventstart'))
+              $('.end').text($(this).data('eventend'))
+              $('.guests').text($(this).data('eventguests'))
+              $('.location').text($(this).data('eventlocation'))
+              $('.description').text($(this).data('eventdescription'))
+
+          })
+      </script>

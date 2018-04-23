@@ -1,0 +1,129 @@
+<%- include('../../../templates/organizerNavbar.ejs') -%>
+    <style>
+table, td, th {
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 5px;
+}
+</style>
+  <!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp"  style="min-height:400;">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">PAID ACCOUNTS</h3>
+          <div class="section-title-divider"></div>
+
+        </div>
+      </div>
+
+
+
+ <div class="row">
+
+<%if (re.length==0 || re[0].strEventName == null){ %>
+          <center><h1>There's no unpaid accounts.</h1></center></div>
+            <%} else {%>
+
+<div class="container" >
+    <div class="row" >
+        <div align=center style="overflow-y: scroll; width:97%;min-height:400;">
+
+    <table width="100%" >
+    <tr  style="border: 1px solid #ddd;">
+      <th style="border: 1px solid #ddd;" >Event Name</th>
+      <th style="border: 1px solid #ddd;" >Start</th>
+      <th style="border: 1px solid #ddd;" >End</th>
+      <th style="border: 1px solid #ddd;" >Location</th>
+      <th style="border: 1px solid #ddd;" >Total</th>
+
+    </tr>
+    <tr>
+
+    <% re.forEach(function(i){ %>
+            <td style="border: 1px solid #ddd;"  ><%= i.strEventName %>
+            <td style="border: 1px solid #ddd;" ><h5 ><%= i.start %></td>
+      <td style="border: 1px solid #ddd;" ><h5 ><%= i.end%></td>
+
+      <td style="border: 1px solid #ddd;" ><%= i.strCity %>,<%= i.strProvince %></td>
+      <td style="border: 1px solid #ddd;" ><%= i.totbill %></td>
+
+    
+
+     <% }); %> <% } %>
+       <tr/>
+       </table>
+                </div>
+
+
+
+        </div>
+    </div>
+    </div>
+
+     <!--==========================
+  MODAL UPLOAD
+============================-->
+  <div class="modal fade" id="upload" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">UPLOAD DEPOSIT SLIP</h4>
+        </div>
+        <form method="post" action="/organizerpayment/uploaddeposit" enctype="multipart/form-data">
+        <table>
+        <tr>
+        <input id="transno" name="transno"type="hidden"/>
+<td><input type="file" name="myimage" />
+<td><input type="submit" name="submit" value="submit"/>
+</tr>
+</table>
+</form>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--==========================
+  MODAL UPLOADED
+============================-->
+  <div class="modal fade" id="uploaded" role="dialog">
+    <div class="modal-dialog">
+    <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Bank Account</h4>
+        </div>
+        Bank: BDO<br>
+        Bank Number: 5267 2700 2809 1524
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<%- include('../../../templates/footer.ejs') -%>
+  <script>
+   $('.uploaddepositslip').on('click',function(){
+
+            $('#transno').val($(this).data('uploaddepositslip'))
+
+          })
+      </script>

@@ -1,0 +1,309 @@
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Moments</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link href="favicon.ico" rel="shortcut icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- For dynamic date and time -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/assets/date_time.js"></script>
+
+<script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+</head>
+
+<body>
+  <div id="preloader"></div>
+
+
+<!--==========================
+  Navbar
+============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <img src="/assets/img/logo.png" alt="" title="" /></img>
+
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/businessman/businessmanPending">Home</a></li>
+		<li><a href="/login/logout" onclick="return confirm('Do you want to Logout?');">Logout</a></li>
+		<li><a>| &nbsp;&nbsp; Sign in as <%= user %> &nbsp;&nbsp;&nbsp;&nbsp;<span id="date_time"></span></a>
+           <script type="text/javascript">window.onload = date_time('date_time');</script>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #navbar -->
+
+
+<!--==========================
+  modal for Create new item
+============================-->
+<div class="modal fade" id="createNewItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">OFFER YOUR NEW ITEM</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/businessman/createItem">
+              <div class="form-group">
+
+				<label for="ItemName">Item Name</label>
+                <input type="text" class="form-control" id="ItemName" name="itemName" placeholder="" required>
+				<br>
+				<label for="ItemPrice">Item Price</label>
+                <input type="number" class="form-control" id="ItemPrice" name="itemPrice" placeholder="" min=1 required>
+				<br>
+				<label for="Description">Item Description</label>
+                <textarea  style=" resize: none;" class="form-control" id="Description" name="itemDescription" placeholder="What's the specification/condition of your item?" required></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+
+				<script>
+				function updateSlider(slideAmount) {
+				var sliderDiv = document.getElementById("sliderAmount");
+				sliderDiv.innerHTML = slideAmount+"% will be refunded by the event organizers if their reservation is cancelled.";
+				}
+				</script>
+				<input id="slide" type="range" min="1" max="100" step="1" value="75" onchange="updateSlider(this.value)" required>
+				<div id="sliderAmount" ></div>​
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="Monday" >Mon &nbsp;&nbsp;
+				<input type="checkbox" name="Tuesday" >Tue &nbsp;&nbsp;
+				<input type="checkbox" name="Wednesday" >Wed &nbsp;&nbsp;
+				<input type="checkbox" name="Thursday" >Thu &nbsp;&nbsp;
+				<input type="checkbox" name="Friday" >Fri &nbsp;&nbsp;
+				<input type="checkbox" name="Saturday" >Sat &nbsp;&nbsp;
+				<input type="checkbox" name="Sunday" >Sun &nbsp;&nbsp;
+				</div><br>
+				<br>
+				<label for="">Available Time</label>
+				<br>
+				<table align="center">
+				<tr>
+				<td>
+				Start Time
+                <input type="time" class="form-control" id="startTime" placeholder=""	width="10">
+				<td>
+				End Time
+				<input type="time" class="form-control" id="endTime" placeholder="">
+				</tr>
+				</table>
+				<br>
+				<label for="Quantity">Quantity</label>
+                <input type="number" class="form-control" id="quantity" name="itemQuantity" value=1 required >
+				<br>
+
+              <button type="submit" class="btn btn-services"  >Create</button>
+				<button type="reset" class="btn btn-services"  >Clear</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+<!--==========================
+  modal for Create new service
+============================-->
+<div class="modal fade" id="createNewService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">OFFER YOUR NEW SERVICE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+
+				<label for="serviceName">Service Name</label>
+                <input type="text" class="form-control" id="serviceName" placeholder="" required>
+				<br>
+				<label for="servicePrice">Service Price</label>
+                <input type="number" class="form-control" id="servicePrice" placeholder="" min=1 required>
+				<br>
+				<label for="Description">Service Description</label>
+                <textarea style=" resize: none;"  class="form-control" id="Description" placeholder="What included on the Service?(eg. For Music Entertainment Service: 1 singer, 1 microphone, 2 speakers, and 1 piano." required></textarea>
+				<br>
+				<label for="">Refund Percentage</label>
+
+
+			<script>
+				function updateSliders(slideAmount) {
+				var sliderDiv = document.getElementById("sliderAmounts");
+				sliderDiv.innerHTML = slideAmount+"% will be refunded by the event organizers if their reservation is cancelled.";
+				}
+				</script>
+				<input id="slide" type="range" min="1" max="100" step="1" value="75" onchange="updateSliders(this.value)" required>
+				<div id="sliderAmounts" ></div>​
+				<br>
+
+				<label for="">Available Day</label>
+				<br>
+				<div align="center">
+                <input type="checkbox" name="Monday" >Mon &nbsp;&nbsp;
+				<input type="checkbox" name="Tuesday" >Tue &nbsp;&nbsp;
+				<input type="checkbox" name="Wednesday" >Wed &nbsp;&nbsp;
+				<input type="checkbox" name="Thursday" >Thu &nbsp;&nbsp;
+				<input type="checkbox" name="Friday" >Fri &nbsp;&nbsp;
+				<input type="checkbox" name="Saturday" >Sat &nbsp;&nbsp;
+				<input type="checkbox" name="Sunday" >Sun &nbsp;&nbsp;
+				</div><br>
+				<br>
+				<label for="">Available Time</label>
+				<br>
+				<table align="center">
+				<tr>
+				<td>
+				Start Time
+                <input type="time" class="form-control" id="startTime" placeholder=""	width="10" required>
+				<td>
+				End Time
+				<input type="time" class="form-control" id="endTime" placeholder="" required>
+				</tr>
+				</table>
+				<br>
+
+              <button type="submit" class="btn btn-services"  >Create</button>
+				<button type="reset" class="btn btn-services"  >Clear</button>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+<!--==========================
+  modal for view profile
+============================-->
+<div class="modal fade" id="viewProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID" placeholder="" readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" readonly>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" readonly>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelephoneNumber" readonly>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="number" class="form-control" id="CellphoneNumber" readonly>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" readonly>
+				<br>
+				<label for="BIR">BIR Number</label>
+                <input type="text" class="form-control" id="BIR" readonly>
+				<br>
+				<label for="BIR">DTI Number</label>
+                <input type="text" class="form-control" id="DTI" readonly>
+				<br>
+              <button type="close" class="btn btn-services" data-dismiss="modal" data-toggle="modal" data-target="#editProfile" >Edit</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+
+   <!--==========================
+  modal for edit event organizer profile
+============================-->
+<div class="modal fade" id="editProfile" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EDIT YOUR PROFILE</h3>
+		</div>
+		<div class="modal-body">
+			<form>
+              <div class="form-group">
+				<label for="ID">Your ID</label>
+                <input type="number" class="form-control" id="ID" placeholder="" readonly>
+				<br>
+				<label for="FName">First Name</label>
+                <input type="text" class="form-control" id="FName" required>
+				<br>
+				<label for="LName">Last Name</label>
+                <input type="text" class="form-control" id="LName" required>
+				<br>
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="number" class="form-control" id="TelephoneNumber" required>
+				<br>
+				<label for="CellphoneNumber">Cellphone Number</label>
+                <input type="number" class="form-control" id="CellphoneNumber" required>
+				<br>
+				<label for="BusinessNumber">Business Name</label>
+                <input type="text" class="form-control" id="BusinessNumber" readonly>
+				<br>
+				<label for="BIR">BIR Number</label>
+                <input type="text" class="form-control" id="BIR" readonly>
+				<br>
+				<label for="BIR">DTI Number</label>
+                <input type="text" class="form-control" id="DTI" readonly>
+				<br>
+              <button type="submit" class="btn btn-services" data-toggle="modal" data-target="#" >Submit</button>
+
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>

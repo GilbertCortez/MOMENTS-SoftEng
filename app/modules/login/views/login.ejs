@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Moments</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+  <meta property="og:title" content="">
+  <meta property="og:image" content="">
+  <meta property="og:url" content="">
+  <meta property="og:site_name" content="">
+  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:site" content="">
+  <meta name="twitter:title" content="">
+  <meta name="twitter:description" content="">
+  <meta name="twitter:image" content="">
+
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+  <link href="favicon.ico" rel="shortcut icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+     <!-- Sweet Alert -->
+   <link href="/assets/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- For dynamic date and time -->
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <script type="text/javascript" src="/assets/date_time.js"></script>
+
+
+
+
+<!-- =======================================================
+  Theme Name: Imperial
+  Theme URL: https://bootstrapmade.com/imperial-free-onepage-bootstrap-theme/
+  Author: BootstrapMade.com
+  Author URL: https://bootstrapmade.com
+======================================================= -->
+</head>
+
+<body>
+  <div id="preloader"></div>
+
+<!--==========================
+  Hero Section
+============================-->
+  <section id="hero">
+    <div class="hero-container">
+      <div class="wow fadeIn">
+        <div class="hero-logo">
+         <img class="" src="/assets/img/logo.png" alt="Imperial">
+        </div>
+
+        <h1>Welcome to Moments</h1>
+        <h2> <span class="rotating"> You create your Events, We provide a platform, To cherish your MOMENTS</span></h2>
+
+
+
+      </div>
+    </div>
+  </section>
+
+
+   <!--==========================
+  modal for login admin
+============================-->
+<div class="modal fade" id="AdminLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">ADMIN</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/login/adminLogin">
+              <div class="form-group">
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" id="Email" name="email" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" name="password" id="Password" required >
+				<div align="right"><input type="checkbox" onclick="AdminShowPassword()">Show Password</div>
+
+
+<script>
+function AdminShowPassword() {
+    var x = document.getElementById("Password");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+				<hr>
+              <center><button type="submit" class="btn btn-services">Log In</button><center>
+           </div>
+                  </form>
+
+	</div>
+  </div>
+</div>
+</div>
+   <!--==========================
+  modal for login businessman
+============================-->
+<div class="modal fade" id="BusinessmanLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Provider</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/login/businessmanLogin">
+              <div class="form-group">
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" id="Email" name="email" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" name="password" id="provpass" required  title="Please enter your correct password.">
+				<div align="right"><input type="checkbox" onclick="ProviderShowPassword()">Show Password</div>
+				<br>
+				<script>
+function ProviderShowPassword() {
+    var x = document.getElementById("provpass");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+              <hr>
+              <center><button type="submit" class="btn btn-services">Log In</button><center>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+   <!--==========================
+  modal for login event organizer
+============================-->
+<div class="modal fade" id="EventOrganizerLogin" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Event Organizer</h3>
+		</div>
+		<div class="modal-body">
+			<form method="post" action="/login/organizerLogin">
+              <div class="form-group">
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" name="email" id="Email" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" name="password" id="orgpass" required  title="Please enter your correct password.">
+				<div align="right"><input type="checkbox" onclick="OrganizerShowPassword()">Show Password</div>
+				<br>
+				<script>
+function OrganizerShowPassword() {
+    var x = document.getElementById("orgpass");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+				<hr>
+              <center><button type="submit" class="btn btn-services">Log In</button><center>
+            </form>
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+<!--==========================
+  Header Section
+============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <a href="#hero"><img src="/assets/img/logo.png" alt="" title="" /></img></a>
+
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="#hero">Home</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Features</a></li>
+          <li><a href="#team">Team</a></li>
+          <li><a href="#contact">Contact Us</a></li>
+		  <!--<li><a href="#">Login</a></li>-->
+          <li class="dropdown">
+                <a href="#" data-toggle="dropdown" class="dropdown-toggle">Login<b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="/login/organizerLogin" data-toggle="modal" data-target="#EventOrganizerLogin">Event Organizer</a></li>
+                    <li><a href="/login/businessmanLogin" data-toggle="modal" data-target="#BusinessmanLogin">Provider</a></li>
+                </ul>
+           </li>
+		  <li><a href="#subscribe">Sign Up</a></li>
+		<li><a>|&nbsp;&nbsp;<span id="date_time"></span></a>
+           <script type="text/javascript">window.onload = date_time('date_time');</script>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+
+<!--==========================
+  About Section
+============================-->
+  <section id="about">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">About Us</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description"></p>
+        </div>
+      </div>
+    </div>
+    <div class="container about-container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-6 col-md-push-6 about-content">
+          <h2 class="about-title">We help you to cherish your MOMENTS</h2>
+
+          <p class="about-text">
+		  The best things in life are not things, they are moments or events, and to make the best event ever, it takes great planning and organizing. Events are never ending, and we knew how planning and organizing an event takes a lot of time, effort and of course, money, and sometimes, if we can’t do it, we might hire an organizer to help us in planning our events. We cannot let this problems hinder us in making the best event ever. To help these people who don’t have the time or money to hire an organizer, or who face difficulties in planning and organizing events, but still dreams to make the best event in their life ever, our team developed a system that will let these people be the organizer in their special events. Our system will help these organizers to provide what they need for a certain event or occasion, to make it hassle free for them at the same time give them satisfaction to the services given by the businessmen at a minimum cost. Our system also will help businessmen who provides items and services for events to organizers, to help them promote their business, and to increase the number of clients that will lead to higher income.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--==========================
+  Services Section
+============================-->
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Features</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description">These are brief information about what can user do in our system.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-plus"></i></div>
+          <h4 class="service-title"><a href="">Create Event</a></h4>
+          <p class="service-description">Event Organizers can create their events and to let them choose the best items/services available that they will need in their event.</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-search"></i></div>
+          <h4 class="service-title"><a href="">Reserve items/acquire services</a></h4>
+          <p class="service-description">Event Organizers can choose and avail the items they choose and the services they will need in their event.</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-pencil"></i></div>
+          <h4 class="service-title"><a href="">Post items/ services</a></h4>
+          <p class="service-description">Businessmen can offer their items and services that the event organizers will need in their event.</p>
+        </div>
+		</div>
+		<div class="row">
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-trash"></i></div>
+          <h4 class="service-title"><a href="">Cancellation of reservations</a></h4>
+          <p class="service-description">Our system will let the Event Organizers to cancel their reservations, both items and services.</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-trash"></i></div>
+          <h4 class="service-title"><a href="">Cancellation of event</a></h4>
+          <p class="service-description">Our system will let the Event organizers to cancel their event. All of the reservations they made will be cancelled also.</p>
+        </div>
+        <div class="col-md-4 service-item">
+          <div class="service-icon"><i class="fa fa-user"></i></div>
+          <h4 class="service-title"><a href="">Hiring businessman</a></h4>
+          <p class="service-description" >Our system will be having an Admin who will hire businessman. If they will passed our interview and if they provide our requirements like BIR Number, DTI Number, Bank Account, they will have prerogatives of a Businessman. </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<!--==========================
+  Subscrbe Section
+============================-->
+  <section id="subscribe">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-4">
+          <h3 class="subscribe-title">Be part of our Community!</h3>
+          <p class="subscribe-text">Plan, Create, and Cherish your event with us. </p>
+        </div>
+        <div class="col-md-8 subscribe-btn-container">
+		 <h4>Sign up as.. <h4>
+          <a class="subscribe-btn" data-toggle="modal" data-target="#EventOrganizerSignUp" >Event Organizer</a>
+		  <a class="subscribe-btn" data-toggle="modal" data-target="#BusinessmanSignUp">Provider</a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--==========================
+  modal for signup event organizer
+============================-->
+<div class="modal fade" id="EventOrganizerSignUp" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">EVENT ORGANIZER SIGN UP FORM</h3>
+		</div>
+		<div class="modal-body">
+
+            <!-- content goes here -->
+			<form method="post" action="/login/OrganizerSignup">
+              <div class="form-group">
+			  <fieldset style="width: 500px;">
+			  <legend><strong>Personal Information</strong></legend>
+                <label for="FName">First Name*</label>
+                <input type="text" class="form-control" id="FName" name="fname"pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" required>
+                <br>
+				<label for="MName">Middle Name</label>
+                <input type="text" class="form-control" id="MName" name="mname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" >
+				<br>
+				<label for="LName">Last Name*</label>
+                <input type="text" class="form-control" id="LName" name="lname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" required>
+				<br>
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" id="Email" name="email" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" id="OSUPassword" name="password"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}[A-Za-z0-9@._-]+" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters  but no special characters" required>
+				<h6>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters but no special characters</h6>
+                  <div align="right"><input type="checkbox" onclick="OrganizerSUShowPassword()">Show Password</div>
+				</fieldset>
+						<br>
+							  <fieldset style="width: 500px;">
+			  <legend><strong>Contact Information</strong></legend>
+
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="text" class="form-control" id="TelephoneNumber" name="telNo"   pattern= "^[\(]\d{1,5}[\)]\d{3}-\d{4}$" title="Valid format (Area Code)XXX-XXXX e.g. (02)713-1234">
+				<label for="CellphoneNumber">Cellphone Number*</label>
+                <input type="text" class="form-control" id="CellphoneNumber" name="cpNo" pattern="(/?09)[0-9]{9}" title="Please use a valid Philippine Cellphone Number(ex.09123456789)"required placeholder="e.g.(09123456789)">
+					</fieldset>
+					<br>
+			 <fieldset style="width: 500px;">
+			  <legend><strong>Business Information</strong></legend>
+				<label for="BusinessName">Business Name</label>
+                <input type="text" class="form-control" id="BusinessName" name="businessname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" placeholder="Business Name(eg. Cherish Event Company)">
+				</fieldset>
+				<br>
+              <button type="submit" class="btn btn-default">Submit</button>
+			  <button type="reset" class="btn btn-default">Clear</button>
+
+            </form>
+	<script>
+function OrganizerSUShowPassword() {
+    var x = document.getElementById("OSUPassword");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+		</div>
+
+	</div>
+  </div>
+</div>
+</div>
+ <!--==========================
+  modal for signup businessman
+============================-->
+<div class="modal fade" id="BusinessmanSignUp" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">PROVIDER SIGN UP FORM</h3>
+		</div>
+		<div class="modal-body">
+
+            <!--alert goes here -->
+
+
+            <!-- content goes here -->
+			<form method="post" action="/login/businessmanSignUp">
+              <div class="form-group">
+			  <fieldset style="width: 500px;">
+			  <legend><strong>Personal Information</strong></legend>
+                <label for="FName">First Name*</label>
+                <input type="text" class="form-control" id="FName" name="fname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" required>
+                <br>
+				<label for="MName">Middle Name</label>
+                <input type="text" class="form-control" id="MName" name="mname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" >
+				<br>
+				<label for="LName">Last Name*</label>
+                <input type="text" class="form-control" id="LName" name="lname" pattern="[A-Za-z' -]+" title="You can't input special characters such as('/','<','-')" required>
+				<br>
+				<label for="Email">Email Address*</label>
+                <input type="email" class="form-control" id="Email" name="bemail" placeholder="Email(eg. juandc@gmail.com)" required>
+				<br>
+				<label for="Password">Password*</label>
+                <input type="password" class="form-control" id="PSUPassword" name="bpassword" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}[A-Za-z0-9@._-]+" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters but no special characters" required>
+				<h6>Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters but no special characters</h6>
+                  <div align="right"><input type="checkbox" onclick="ProviderSUShowPassword()">Show Password</div>
+				</fieldset>
+						<br>
+				<fieldset style="width: 500px;">
+			  <legend><strong>Contact Information</strong></legend>
+
+				<label for="TelephoneNumber">Telephone Number</label>
+                <input type="text" class="form-control" id="TelephoneNumber" name="btelno"   pattern= "^[\(]\d{1,5}[\)]\d{3}-\d{4}$" title="Valid format (Area Code)XXX-XXXX e.g. (02)713-1234">
+				<label for="CellphoneNumber">Cellphone Number*</label>
+                <input type="text" class="form-control" id="CellphoneNumber"   name="bcpno" pattern="(/?09)[0-9]{9}" title="Please use a valid Philippine Cellphone Number(ex.09123456789)"required placeholder="e.g.(09123456789)">
+					</fieldset>
+
+          <fieldset style="width: 500px;">
+          <legend><strong>Business Location Information</strong></legend>
+          	<label for="EventLocation">Event Location(City,Province)</label>
+
+
+
+          							  		<script >
+          								function activatePlacesSearch(){
+
+          								var input = document.getElementById('searchbox');
+          								var options = {
+          								  types: ['(regions)'],
+          								  componentRestrictions: {country: "ph"}
+          								 };
+          								var autocomplete = new google.maps.places.Autocomplete(input,options);
+
+
+
+          							}
+          							</script>
+          							<input type="text"  class="form-control" name="location" id="searchbox" placeholder="Sta. Mesa, Manila or Marilao, Bulacan" required pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+          							<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCURW8qYuJPFWDgCQLx2iLWBNsWHbZ4FQg&libraries=places&callback=activatePlacesSearch"  ></script>
+
+          </fieldset>
+          					<br>
+          			 <fieldset style="width: 500px;">
+          			  <legend><strong>Business Information</strong></legend>
+          				<label for="BusinessName">Business Name*</label>
+                          <input type="text" class="form-control" id="BusinessName" name="businessName" placeholder="Business Name(eg. Cherish Event Company)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+          				<label for="BankName">Bank Name*</label>
+                          <input type="text" class="form-control" name="bankname" id="BankName" placeholder="Bank Name(eg. BDO, Landbank)" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+          				<label for="BankNumber">Bank Number*</label>
+                          <input type="text" class="form-control" name="bankno" id="BankNumber" placeholder="Bank Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+          				<label for="BIR">Bureau Of Internal Revenue Number(BIR No.)*</label>
+                          <input type="text" class="form-control" id="BIR" name="bir" placeholder="BIR Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+          				<label for="DTI">Department of Trade and Industry Number(DTI No.)*</label>
+                          <input type="text" class="form-control" id="DTI" name="dti" placeholder="DTI Number" required  pattern="[^><\][\\\x22;]+" title="Please do not use prohibited special characters such as <,>,\,;">
+
+
+          				</fieldset>
+					<br>
+				<script>
+function ProviderSUShowPassword() {
+    var x = document.getElementById("PSUPassword");
+    if (x.type === "password") {
+        x.type = "text";
+    } else {
+        x.type = "password";
+    }
+}
+</script>
+
+
+              <button type="submit" class="btn btn-default">Submit</button>
+			  <button type="reset" class="btn btn-default">Clear</button>
+
+            </form>
+
+		</div>
+
+	</div>
+  </div>
+</div>
+</div>
+<!--==========================
+  Porfolio Section
+============================-->
+  <section id="portfolio">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Sample Events</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description">These are some of the Events you might organize in the future.</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/birthday.jpg);" >
+            <div class="details">
+              <h4>BIRTHDAY</h4>
+              <span>is an occasion when a person or institution celebrates the anniversary of their birth. Birthdays are celebrated in numerous cultures, often with a gift, party, or rite of passage.</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/Wedding.jpg);">
+            <div class="details">
+              <h4>Wedding</h4>
+              <span>is a ceremony where two people or a couple are united in marriage. Wedding traditions and customs vary greatly between cultures, ethnic groups, religions, countries, and social classes.</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/funeral.jpg);">
+            <div class="details">
+              <h4>Funeral</h4>
+              <span>is a ceremony connected with the burial, cremation, etc. of the body of a dead person, or the burial (or equivalent) with the attendant observances</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/Seminar.jpg);">
+            <div class="details">
+              <h4>Educational Seminar</h4>
+              <span>is a form of academic instruction, either at an academic institution or offered by a commercial or professional organization</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/Sports.jpg);" >
+            <div class="details">
+              <h4>Sports Event</h4>
+              <span>includes all forms of competitive physical activity or games which, through casual or organised participation, aim to use, maintain or improve physical ability and skills while providing enjoyment to participants, and in some cases, entertainment for spectators.</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/MediaEvent.jpg);">
+            <div class="details">
+              <h4>Media Event</h4>
+              <span> is an event or activity conducted for the purpose of media publicity. It may also include any event that is covered in the mass media or was hosted largely with the media in mind.</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/Festival.jpg);" >
+            <div class="details">
+              <h4>Festival</h4>
+              <span>is an event ordinarily celebrated by a community and centering on some characteristic aspect of that community and its religion or traditions.</span>
+            </div>
+          </a>
+        </div>
+
+        <div class="col-md-3">
+          <a class="portfolio-item" style="background-image: url(/assets/img/Party.jpg);" >
+            <div class="details">
+              <h4>Party</h4>
+              <span>is a gathering of people who have been invited by a host for the purposes of socializing, conversation, recreation, or as part of a festival or other commemoration of a special occasion.</span>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+<!--==========================
+  Team Section
+============================-->
+  <section id="team">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Our Team</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description">"Unity is strength... when there is teamwork and collaboration, wonderful things can be achieved."</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="/assets/img/team-1.jpg" alt=""></div>
+            <h4>Joseph Bryan Larin</h4>
+            <span>Project Manager/Leader</span>
+            <div class="social">
+              <a ><i class="fa fa-twitter"></i></a>
+              <a ><i class="fa fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="/assets/img/team-2.jpg" alt=""></div>
+            <h4>Gilbert Cortez & Janelle Alag</h4>
+            <span>Application Engineer</span>
+            <div class="social">
+              <a ><i class="fa fa-twitter"></i></a>
+              <a ><i class="fa fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="/assets/img/team-3.jpg" alt=""></div>
+            <h4>Alexander Pijan</h4>
+            <span>Database Engineer</span>
+            <div class="social">
+              <a ><i class="fa fa-twitter"></i></a>
+              <a ><i class="fa fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-3">
+          <div class="member">
+            <div class="pic"><img src="/assets/img/team-4.jpg" alt=""></div>
+            <h4>Mary Justine Espin</h4>
+            <span>Technical Documentator</span>
+            <div class="social">
+              <a ><i class="fa fa-twitter"></i></a>
+              <a ><i class="fa fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!--==========================
+  Contact Section
+============================-->
+  <section id="contact">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Contact Us</h3>
+          <div class="section-title-divider"></div>
+          <p class="section-description">For further inquiries and suggestions, please do reach us through this contact information</p>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3 col-md-push-2">
+          <div class="info">
+            <div>
+              <i class="fa fa-map-marker"></i>
+              <p>Anonas, Santa Mesa,<br>Maynila, Kalakhang Maynila, Philippines</p>
+            </div>
+
+            <div>
+              <i class="fa fa-envelope"></i>
+              <p>moments@gmail.com</p>
+            </div>
+
+            <div>
+              <i class="fa fa-phone"></i>
+              <p>+63 933 256 0780</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-5 col-md-push-2">
+          <div class="form">
+            <div id="sendmessage">Your message has been sent. Thank you!</div>
+            <div id="errormessage"></div>
+            <form action="" method="post" role="form" class="contactForm">
+                <div class="form-group">
+                  <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" data-rule="minlen:4" data-msg="Please enter at least 8 chars of subject" />
+                  <div class="validation"></div>
+                </div>
+                <div class="form-group">
+                  <textarea class="form-control" name="message" rows="5" data-rule="required" data-msg="Please write something for us" placeholder="Message"></textarea>
+                  <div class="validation"></div>
+                </div>
+                <div class="text-center"><button type="submit">Send Message</button></div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+<!--==========================
+  Footer
+============================-->
+  <footer id="footer">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="copyright">
+              &copy; Copyright <strong>Moments</strong>. All Rights Reserved
+            </div>
+            <div class="credits">
+              <!--
+                All the links in the footer should remain intact.
+                You can delete the links only if you purchased the pro version.
+                Licensing information: https://bootstrapmade.com/license/
+                Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Imperial
+              -->
+
+            </div>
+          </div>
+        </div>
+      </div>
+  </footer><!-- #footer -->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+   <!-- Required JavaScript Libraries -->
+  <script src="/assets/lib/jquery/jquery.min.js"></script>
+  <script src="/assets/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/assets/lib/superfish/hoverIntent.js"></script>
+  <script src="/assets/lib/superfish/superfish.min.js"></script>
+  <script src="/assets/lib/morphext/morphext.min.js"></script>
+  <script src="/assets/lib/wow/wow.min.js"></script>
+  <script src="/assets/lib/stickyjs/sticky.js"></script>
+  <script src="/assets/lib/easing/easing.js"></script>
+
+ <script src="/assets/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+
+  <!-- Template Specisifc Custom Javascript File -->
+  <script src="/assets/js/custom.js"></script>
+
+  <script src="/assets/contactform/contactform.js"></script>
+
+<% if (alertprovider == 1 ) { %>
+        <script>swal("Error!", "Your email already exists, use another one", "error");</script>
+    <% } %>
+<% if (alertorganizer == 1 ) { %>
+        <script>swal("Error!", "Your email already exists, use another one", "error");</script>
+    <% } %>
+<% if (wrongemail == 1 ) { %>
+        <script>swal("Error!", "You have entered a wrong email/password. Try again!", "error");</script>
+    <% } %>
+
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+<%- include('../../../templates/businessmanNavbar.ejs') -%>  
+
+    <!--==========================
+  Services Section
+============================-->
+  
+  <section id="services">
+    <div class="container wow fadeInUp">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="section-title">Reservation</h3>
+          <div class="section-title-divider"></div>
+     
+        </div>
+      </div>
+        
+      <div class="row">
+        <!-- YOUR CODES HERE -->
+          
+        <% event.forEach (function (i) { %>
+		<fieldset class="well the-fieldset" style="border-color: black; border-width: 3px; background-color: light gray">
+        
+          <div class="card-block"> 
+		<h4><strong>Organizer:</strong> <%= i.strOrganizerFName %>&nbsp;<%= i.strOrganizerMName%>&nbsp;<%= i.strOrganizerLName %></h4>
+			<h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong> Event Name: </strong> <%= i.strEventName %> </h5>  
+			<h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong> Event Time: </strong> <%= i.Start %> to <%= i.End %> </h5> 
+			<h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong> Number of Guests:</strong> <%= i.intEstimatedNumberofGuest %></h5> 
+              <h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Event Location: </strong> <%= i.strCity %> , <%= i.strProvince %> </h5>
+			<h5> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>Event Description: </strong><%= i.strEventDescription %> </h5>
+		<br>
+
+		<h4>Reservations for Item</h4>
+            
+            <% if (item.length==0 || item == 'underfined'){ %>
+              <h5>No reservations</h5>
+            <%  }  else{ %>  
+            
+			<table width="100%" border="1px" align=center>
+				<tr>
+					<th>No.</th>
+                    <th>Item Name</th>
+					<th>Date Of Claim</th>
+                    <th>Status</th>
+					<th>Total Amount to pay</th>
+                    <th>Action</th>
+				
+				</tr>
+                <% item.forEach(function (j) { %>
+				<tr>
+					<td><%= j.intItemNo %></td>
+					<td><%= j.strItemName %></td>
+					<td><%= j.RDOC %></td>
+                    <td><% if(j.intRentalStatus == 2){ %>
+                        <font style="color:green;"> Accepted </font>
+                        <% } %>
+                        <% if(j.intRentalStatus == 1){ %>
+                        Pending
+                        <% } %>
+                        <% if(j.intRentalStatus == 0) { %>
+                        <font style="color:red;"> Rejected</font>
+                        <% } %>
+                        <% if(j.intRentalStatus == 3) { %>
+                        <font style="color:red;">Cancelled</font>
+                        <% } %>
+                    </td>
+					<td><label>&nbsp;₱&nbsp; <%= j.decRentalFinalPrice %></label></td>
+                    <td>
+                      
+                     
+                        <% if(j.intRentalStatus == 1) { %> 
+                        <button type="submit" class="renteditamount btn btn-secondary btn-sm" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>" data-iprice="<%= j.strEstimatedPrice %>" data-toggle="modal" data-target="#editAmount">Approve </button>
+                        <%}%>
+                        <% if(j.intRentalStatus == 0) { %> 
+                        <button type="submit" class="renteditamount btn btn-secondary btn-sm" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>" data-iprice="<%= j.strEstimatedPrice %>" data-toggle="modal" onclick="return confirm('NOTE: Email first the organizer before setting a price')" data-target="#editAmount">Approve </button>
+                        <%}%>
+                        <% if(j.intRentalStatus == 3) { %> 
+                        <button type="submit" class="renteditamount btn btn-secondary btn-sm" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>" data-iprice="<%= j.strEstimatedPrice %>" data-toggle="modal" onclick="return confirm('NOTE: Email first the organizer before setting a price')" data-target="#editAmount">Offer </button>
+                        <%}%>
+                         <% if(j.intRentalStatus == 2) { %> 
+                        <button type="submit" class="renteditamount btn btn-secondary btn-sm" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>" data-iprice="<%= j.strEstimatedPrice %>" data-toggle="modal" data-target="#editAmount">Change final price </button>
+                        <%}%>
+                        
+                      
+                    <% if(j.intRentalStatus == 1){%> 
+                        <button type="submit" class="ireject btn btn-secondary btn-sm" data-toggle="modal" data-target="#rejectItem" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>">Reject</button>
+                        <% } %>
+                    
+                    <% if(j.intRentalStatus == 2){%> 
+                        <button type="submit" class="icancel btn btn-secondary btn-sm" data-toggle="modal" data-target="#cancelItem" data-rentno="<%=j.intTransactionNo%>" data-itemno="<%=j.intItemNo%>">Cancel</button>
+                        <% } %>
+                    
+                    
+                    </td>
+                    
+                    
+				</tr>
+                
+                <% }); %>
+                
+
+			</table>
+            <% }%>
+            <br>
+            <br>
+              
+            <h4>Services Pending For Reservation</h4>
+               <% if (service.length==0 || service == 'undefined'){ %>
+              <h5>No reservations</h5>
+            <%  }  else{  %> 
+			<table width="100%" border="1px" align=center>
+				<tr>
+					<th>No.</th>
+                    <th>Item Name</th>
+					<th>Date Of Use</th>
+                    <th>Status</th>
+					<th>Total Amount to pay</th>
+                    <th>Action</th>
+				
+				</tr>
+                <% service.forEach(function (j) { %>
+				<tr>
+					<td><%= j.intGenServiceNo %></td>
+					<td><%= j.strServiceName %></td>
+					<td><%= j.SDOU %></td>
+                    <td><% if(j.intServiceStatus == 2){ %>
+                        <font style="color:green;"> Accepted </font>
+                        <% } %>
+                        <% if(j.intServiceStatus == 1){ %>
+                        Pending
+                        <% } %>
+                        <% if(j.intServiceStatus == 0){ %>
+                        <font style="color:red;">Rejected</font>
+                        <% } %>
+                         <% if(j.intServiceStatus == 3){ %>
+                        <font style="color:red;">Cancelled</font>
+                        <% } %>
+                    </td>
+					<td><label>&nbsp;₱&nbsp; <%= j.decServiceFinalPrice %></label></td>
+                    <td>
+                        <% if(j.intServiceStatus == 1) { %> 
+                        <button type="submit" class="serviceeditamount btn btn-secondary btn-sm" data-toggle="modal" data-target="#serviceeditAmount" data-sprice="<%= j.strEstimatedPrice %>"  data-serviceno="<%=j.intTransactionNo%>" data-genserviceno="<%= j.intGenServiceNo %>">Approve </button> 
+                        <%}%>
+                        <% if(j.intServiceStatus == 0) { %> 
+                        <button type="submit" class="serviceeditamount btn btn-secondary btn-sm" data-toggle="modal" data-target="#serviceeditAmount" data-sprice="<%= j.strEstimatedPrice %>"  data-serviceno="<%=j.intTransactionNo%>" onclick="return confirm('NOTE: email first the organizer before setting a price')" data-genserviceno="<%= j.intGenServiceNo %>">Approve </button> 
+                        <%}%>
+                         <% if(j.intServiceStatus == 3) { %> 
+                        <button type="submit" class="serviceeditamount btn btn-secondary btn-sm" data-toggle="modal" data-target="#serviceeditAmount" data-sprice="<%= j.strEstimatedPrice %>"  data-serviceno="<%=j.intTransactionNo%>" onclick="return confirm('NOTE: email first the organizer before setting a price')" data-genserviceno="<%= j.intGenServiceNo %>">Offer </button> 
+                        <%}%>
+                        <% if(j.intServiceStatus == 2) { %>
+                        <button type="submit" class="serviceeditamount btn btn-secondary btn-sm" data-toggle="modal" data-target="#serviceeditAmount" data-sprice="<%= j.strEstimatedPrice %>"  data-serviceno="<%=j.intTransactionNo%>" data-genserviceno="<%= j.intGenServiceNo %>">Change final price </button>
+                        <%}%>
+                        
+                    <% if(j.intServiceStatus == 1) { %>
+                         <button type="submit" class="sreject btn btn-secondary btn-sm" data-toggle="modal" data-target="#rejectService" data-serviceno="<%=j.intTransactionNo%>" data-genserviceno="<%= j.intGenServiceNo %>">
+                        Reject</button>
+                    <% }%>
+                   
+                    <% if(j.intServiceStatus == 2) { %>
+                         <button type="submit" class="scancel btn btn-secondary btn-sm" data-toggle="modal" data-target="#cancelService" data-serviceno="<%=j.intTransactionNo%>" data-genserviceno="<%= j.intGenServiceNo %>">
+                        Cancel</button>
+                    <% }%>
+                    
+                    </td>
+				</tr>
+                <% }); %>
+
+			</table>
+            <% }%>
+			<br>
+			
+			<table width="70%" border="1px" align=center>
+				<tr>
+					<th>Total Amount to be paid</th>
+					<td>00000</td>
+				</tr>
+                 <tr>
+					<th>Downpayment:</th>
+					<td>000</td>
+				</tr>
+				<tr>
+					<th>Balance:</th>
+					<td>000</td>
+				</tr>
+               
+			</table>
+			<br>
+			<table align=center>
+			<tr>
+		
+			<td><button type="submit" class="btn btn-primary" data-toggle="modal" data-target="#sendBill">Send Bill Via Email</button></td>
+			
+			</tr>
+			</table>
+				
+				
+				
+        </div>
+        </fieldset>
+        <% }); %>
+<!--==========================
+  modal for view 
+============================-->
+<div class="modal fade" id="viewDetails" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+<!--			<h3 class="modal-title" id="lineModalLabel">YOUR ITEM</h3>-->
+		</div>
+		<div class="modal-body">
+	
+        <p><strong>Organizer's Name</strong></p><p class="organizerName"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Name: </p><p class="name"></p>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Start Time: </p><p class="start"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; End Time: </p><p class="end"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Number of Guests: </p><p class="guests">
+            </p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Location: </p><p class="location"></p>
+			<p> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Event Description: </p><p class="description"></p>
+		<br>
+
+		<h4>Items or Sevice to be Reserved</h4>
+			<table width="100%" border="1px" align=center>
+				<tr>
+					<th>No.</th>
+                    <th>Item/Service</th>
+					<th>Date Of Claim</th>
+					<th>Total Amount to pay</th>
+                    <th>Action</th>
+				
+				</tr>
+				<tr>
+					<td></td>
+					<td id="ItemName"> One </td>
+					<td></td>
+					<td></td>
+					<td><input id="Amount" readonly></td>
+                    <td><button type="submit" class="editbutton btn btn-primary" data-toggle="modal" data-target="#editAmount">Edit Amount</button></td>
+				</tr>
+
+			</table>
+			<br>
+			
+			<table width="70%" border="1px" align=center>
+				<tr>
+					<th>Total Amount to be paid</th>
+					<td></td>
+				</tr>
+				<tr>
+					<th>Balance:</th>
+					<td></td>
+				</tr>
+			</table>
+            
+		</div>
+	</div>
+  </div>
+</div>
+
+<!--==========================
+  modal for view deposit slip
+============================-->  
+<div class="modal fade" id="viewDepositSlip" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Deposit Slip</h3>
+		</div>
+		<div class="modal-body">
+	
+              <button type="submit" class="btn btn-services" data-dismiss="modal">Okay</button>
+            
+		</div>
+	</div>
+  </div>
+</div>
+
+        
+<!--==========================
+  modal for item edit amount
+============================-->  
+<div class="modal fade" id="editAmount" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Enter Amount</h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             
+                <input type="hidden" class="form-control" id="am" name="rentalno" readonly >
+                <input type="hidden" class="form-control" id="am2" name="rentalno2" readonly >
+            <label for="am3">Your estimated price:</label>
+           <input type="text" class="form-control" id="am3" readonly>
+            <label for="amount">Final Price</label>
+                <input type="number" class="form-control" id="amount" name="rentalfinalprice" placeholder="" required>
+				<br> 
+            
+	
+              <button type="submit" formmethod="post" formaction="/businessman/editAmount" class="btn btn-primary" >Set Amount</button>
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+</div>
+        
+        
+<!--==========================
+  modal for service edit amount
+============================-->  
+<div class="modal fade" id="serviceeditAmount" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Enter Amount</h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             
+                <input type="hidden" class="form-control" id="sam" name="servno" readonly >
+                 <input type="hidden" class="form-control" id="sam2" name="servno2" readonly >
+                 <label for="sam3">Your estimated price:</label><input type="text" class="form-control" id="sam3"  readonly >
+                <label for="amount">Final Price</label>
+                <input type="number" class="form-control" id="amount" name="servicefinalprice" placeholder="" required>
+				<br> 
+            
+	
+              <button type="submit" formmethod="post" formaction="/businessman/serviceeditAmount" class="btn btn-primary" >Set Amount</button>
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+        
+<!--==========================
+  modal for service reject
+============================-->  
+<div class="modal fade" id="rejectService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             <h4>Reject this service?</h4>
+                <input type="hidden" class="form-control" id="sr" name="sno" readonly >
+                 <input type="hidden" class="form-control" id="sr2" name="sno2" readonly >
+              <button type="submit" formmethod="post" formaction="/businessman/rejectService" class="btn btn-primary" >Yes</button>
+                <button type="Submit" class="btn btn-services"  data-dismiss="modal">No</button>
+            
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+        
+<!--==========================
+  modal for service cancel
+============================-->  
+<div class="modal fade" id="cancelService" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             <h4>Cancel this service?</h4>
+                <input type="hidden" class="form-control" id="sc" name="sno" readonly >
+                 <input type="hidden" class="form-control" id="sc2" name="sno2" readonly >
+              <button type="submit" formmethod="post" formaction="/businessman/cancelService" class="btn btn-primary" >Yes</button>
+                <button type="Submit" class="btn btn-services"  data-dismiss="modal">No</button>
+            
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+        
+<!--==========================
+  modal for item reject
+============================-->  
+<div class="modal fade" id="rejectItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             <h4>Reject this Item?</h4>
+                <input type="hidden" class="form-control" id="ir" name="rno" readonly >
+                <input type="hidden" class="form-control" id="ir2" name="rno2" readonly >
+              <button type="submit" formmethod="post" formaction="/businessman/rejectItem" class="btn btn-primary" >Yes</button>
+                <button type="Submit" class="btn btn-services"  data-dismiss="modal">No</button>
+            
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+        
+<!--==========================
+  modal for item cancel
+============================-->  
+<div class="modal fade" id="cancelItem" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel"></h3>
+		</div>
+		<div class="modal-body">
+            <form>
+             <h4>Cancel this Item?</h4>
+                <input type="hidden" class="form-control" id="ic" name="rno" readonly >
+                <input type="hidden" class="form-control" id="ic2" name="rno2" readonly >
+              <button type="submit" formmethod="post" formaction="/businessman/cancelItem" class="btn btn-primary" >Yes</button>
+                <button type="Submit" class="btn btn-services"  data-dismiss="modal">No</button>
+            
+            </form>
+            
+		</div>
+	</div>
+  </div>
+</div>
+
+
+      
+		<!--==========================
+  modal for view deposit slip
+============================-->  
+<div class="modal fade" id="sendBill" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+	<div class="modal-content">
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+			<h3 class="modal-title" id="lineModalLabel">Here's the Email Address</h3>
+		</div>
+		<div class="modal-body">
+            <p>imjanellealag@gmail.com</p>
+	
+              <button type="submit" class="btn btn-services" data-dismiss="modal">Send</button>
+            
+		</div>
+	</div>
+  </div>
+</div>
+
+
+        
+
+      
+	<!-- END OF YOUR CODES -->
+      </div>
+   
+  </section>
+  
+  
+<%- include('../../../templates/footer.ejs') -%>
+
+<script>
+    $('.renteditamount').on('click', function(){
+        $('#am').val($(this).data('rentno'))
+        $('#am2').val($(this).data('itemno'))
+        $('#am3').val($(this).data('iprice'))
+    })
+    $('.serviceeditamount').on('click', function(){
+        $('#sam').val($(this).data('serviceno'))
+        $('#sam2').val($(this).data('genserviceno'))
+        $('#sam3').val($(this).data('sprice'))
+    })
+    $('.sreject').on('click', function(){
+        $('#sr').val($(this).data('serviceno'))
+        $('#sr2').val($(this).data('genserviceno'))
+    })
+    $('.scancel').on('click', function(){
+        $('#sc').val($(this).data('serviceno'))
+        $('#sc2').val($(this).data('genserviceno'))
+    })
+    $('.ireject').on('click', function(){
+        $('#ir').val($(this).data('rentno'))
+        $('#ir2').val($(this).data('itemno'))
+    })
+    $('.icancel').on('click', function(){
+        $('#ic').val($(this).data('rentno'))
+        $('#ic2').val($(this).data('itemno'))
+    })
+    
+</script>

@@ -1,0 +1,93 @@
+<html lang="en">
+<head>
+  <title>Admin</title>
+	  <meta charset="utf-8">
+	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	  <meta content="" name="keywords">
+	  <meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+	  <meta property="og:title" content="">
+	  <meta property="og:image" content="">
+	  <meta property="og:url" content="">
+	  <meta property="og:site_name" content="">
+	  <meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+	  <meta name="twitter:card" content="summary">
+	  <meta name="twitter:site" content="">
+	  <meta name="twitter:title" content="">
+	  <meta name="twitter:description" content="">
+	  <meta name="twitter:image" content="">
+
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+      <link href="favicon.ico" rel="shortcut icon">
+
+  <!-- Google Fonts -->
+      <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+      <link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+	  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+      <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- For dynamic date and time -->
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	  <script type="text/javascript" src="/assets/date_time.js"></script>
+
+    <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+    <!-- DATATABLE CSS -->
+ <link rel="stylesheet" href="/assets/DataTables/datatables.css">
+ <link rel="stylesheet" href="/assets/css/jquery.dataTables.min.css">
+ <link rel="stylesheet" href="/assets/DataTables/Select-1.2.4/css/select.bootstrap.css">
+
+ <!-- DATATABLE Scripts -->
+ <!-- <script src="/assets/js/bootstrap.min.js"></script> -->
+ <script src="/assets/js/jquery-1.11.1.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="/assets/DataTables/datatables.js"></script>
+<script type="text/javascript" charset="utf8" src="/assets/DataTables/Select-1.2.4/js/dataTables.select.js"></script>
+<script type="text/javascript" charset="utf8" src="/assets/js/jquery.dataTables.min.js"></script>
+
+</head>
+
+<body>
+  <div id="preloader"></div>
+
+
+<!--==========================
+  Header Section
+============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+       <img src="/assets/img/logo.png" alt="" title="" /></img>
+
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/admin">Home</a></li>
+          <li><a href="/admin/confirmationOfBusinessman">Applicants</a></li>
+          <li><a href="/admin/allPayments">Payments</a></li>
+          <li><a href="/admin/allReports">Reports</a></li>
+		  <li><a href="/adminlog/logout" onclick="return confirm('Do you want to Logout?');">Logout</a></li>
+
+
+
+
+
+		<li><a>| &nbsp;&nbsp; Signed in as <%= user %> &nbsp;&nbsp;&nbsp;&nbsp;<span id="date_time"></span></a>
+           <script type="text/javascript">window.onload = date_time('date_time');</script>
+
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->

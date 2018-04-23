@@ -1,0 +1,141 @@
+<html lang="en">
+<head>
+	<title>Moments</title>
+
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta content="" name="keywords">
+	<meta content="" name="description">
+
+  <!-- Facebook Opengraph integration: https://developers.facebook.com/docs/sharing/opengraph -->
+	<meta property="og:title" content="">
+	<meta property="og:image" content="">
+	<meta property="og:url" content="">
+	<meta property="og:site_name" content="">
+	<meta property="og:description" content="">
+
+  <!-- Twitter Cards integration: https://dev.twitter.com/cards/  -->
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="">
+	<meta name="twitter:title" content="">
+	<meta name="twitter:description" content="">
+	<meta name="twitter:image" content="">
+
+  <!-- Place your favicon.ico and apple-touch-icon.png in the template root directory -->
+	<link href="favicon.ico" rel="shortcut icon">
+
+    <!-- Sweet Alert -->
+   <link href="/assets/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet">
+  <!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Raleway:300,400,500,700,800" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+	<link href="/assets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+	  <link href="/assets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	  <link href="/assets/lib/animate-css/animate.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+	<link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- For dynamic date and time -->
+	  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	  <script type="text/javascript" src="/assets/date_time.js"></script>
+
+</head>
+
+<body>
+
+<div id="preloader"></div>
+
+
+<!--==========================
+  Navbar
+============================-->
+  <header id="header">
+    <div class="container">
+
+      <div id="logo" class="pull-left">
+        <img src="/assets/img/logo.png" alt="" title="" /></img>
+
+      </div>
+
+      <nav id="nav-menu-container">
+        <ul class="nav-menu">
+          <li class="menu-active"><a href="/organizer">Home</a></li>
+		  <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Events<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/organizer/createEvent" >Create New Event</a></li>
+							<li class="divider"></li>
+							<li><a href="/organizer/upcomingEvents">View Upcoming Events</a></li>
+							<li><a href="/organizer/recentEvents">View Previous Events</a></li>
+							<li><a href="/organizer/cancelledEvents">View Cancelled Events</a></li>
+
+                        </ul>
+                    </li>
+
+		  	  <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" class="dropdown-toggle">Accounts<b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/organizerpayment/unpaidAccounts">Unpaid Accounts</a></li>
+							<li><a href="/organizerpayment/paidAccounts">Paid Accounts</a></li>
+
+
+                        </ul>
+                    </li>
+          <li><a href="#" data-toggle="modal" data-target="#profile">Profile</a></li>
+		  <li><a href="/login/logout" onclick="return confirm('Do you wish to Logout?');">Logout</a></li>
+		  <li><a>| &nbsp;&nbsp; Signed in as <%= user %> &nbsp;&nbsp;&nbsp;&nbsp;<span id="date_time"></span></a>
+				<script type="text/javascript">window.onload = date_time('date_time');</script>
+        </ul>
+      </nav><!-- #nav-menu-container -->
+    </div>
+  </header><!-- #header -->
+          <!--==========================
+  MODAL PROFILE
+============================-->
+	<div class="modal fade" id="profile" role="dialog">
+		<div class="modal-dialog">
+		<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">PROFILE</h4>
+				</div>
+				<div class="modal-body">
+
+					<label>Your ID</label>
+					<input type="" class="form-control"id="" name="" value=<%= profile.intOrganizerID %> readonly>
+					<label>First Name</label>
+					<input type="" class="form-control"id="" name="" value=<%= profile.strOrganizerFName %> readonly>
+					<label>Last Name</label>
+					<input type=""class="form-control" id="" name="" value=<%= profile.strOrganizerLName %> readonly>
+					<label>Email</label>
+					<input type="" class="form-control"id="" name="" value=<%= profile.strOrganizerEmail %> readonly>
+					<label>Telephone Number</label>
+                    <% if (profile.strOrganizerTel+"" == "" ) { %>
+					<input type="" class="form-control"id="" name="" value="N/A" readonly>
+                    <% } %>
+                    <% if (!(profile.strOrganizerTel+"" == "" )) { %>
+                    <input type="" class="form-control"id="" name="" value="<%= profile.strOrganizerTel %>" readonly>
+                     <% } %>
+					<label>Cellphone Number</label>
+					<input type="" class="form-control"id="" name="" value=<%= profile.strOrganizerCell %> readonly>
+					<label>Business Name</label>
+                     <% if (profile.strOrganizerBusinessName+"" == "" ) { %>
+					<input type=""class="form-control" id="" name="" value="N/A" readonly>
+                    <% } %>
+                      <% if (!(profile.strOrganizerBusinessName+"" == "" ))  { %>
+					<input type=""class="form-control" id="" name="" value=<%= profile.strOrganizerBusinessName %> readonly>
+					 <% } %>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
